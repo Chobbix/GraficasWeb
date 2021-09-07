@@ -1,7 +1,7 @@
 body{
     margin: 0;
     padding: 0;
-    background: url(/Elementos/Imagen_puntuaciones.jpg) no-repeat center top;
+    background: url(../Elementos/Imagen_puntuaciones.jpg) no-repeat center top;
     background-size: cover;
     height: 100vh;
     font-family: 'DotGothic16', sans-serif;

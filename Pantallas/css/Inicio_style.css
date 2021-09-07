@@ -1,7 +1,7 @@
 body{
     margin: 0;
     padding: 0;
-    background: url(/Elementos/Imagen_Menu.jpg) no-repeat center top;
+    background: url(../Elementos/Imagen_Menu.jpg) no-repeat center top;
     background-size: cover;
     font-family: 'Dhurjati', sans-serif;
     height: 100vh;
@@ -105,7 +105,7 @@ font-style:italic;
 .laser{
     width: 80px;
     height: 100px;
-    background:url(/Elementos/Laser.png);
+    background:url(../Elementos/Laser.png);
     opacity: .3;
     background-size: 65px;
 
