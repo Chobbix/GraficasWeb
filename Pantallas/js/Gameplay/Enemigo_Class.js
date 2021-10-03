@@ -1,8 +1,9 @@
 class Enemigos {
-    constructor(vida, velocidad, isAlive) {
+    constructor(vida, velocidad, isReady, lado) {
         this.vida = vida;
         this.velocidad = velocidad;
-        this.isAlive = isAlive;
+        this.isReady = isReady;
+        this.lado = lado;
     }
 
     restaurarVida(vida) {
@@ -14,12 +15,7 @@ class Enemigos {
     }
 
     morir() {
-        this.isAlive = false;
         this.vida = 0;
-    }
-
-    vivir() {
-        this.isAlive = true;
     }
 
     recibirDaño(daño) {

@@ -10,6 +10,8 @@ var keys = {};
 var velocidad = 10;
 var lastQ = false;
 var rayCaster;
+var intervalo;
+var ciclos_Timer = 0;
 var collisionObjects = [];
 var material3 = new THREE.MeshLambertMaterial({
     color: new THREE.Color(0.7, 0.0, 0.0)
@@ -35,22 +37,93 @@ $(document).ready(function() {
     cubo.front = new THREE.Vector3(0, 0, -1);
     cubo.player = new Player(50, 10, 1, true);
 
-    var cubo2 = new THREE.Mesh(geometry, material2);
-    cubo2.enemigo = new Enemigos(50, 5, true);
-    cubo2.position.set(posicionAleatoria(), 0, -13);
+    var enemi = new THREE.Mesh(geometry, material2);
+    enemi.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+
+    var enemi1 = enemi.clone();
+    enemi1.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+
+    var enemi2 = enemi.clone();
+    enemi2.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+
+    var enemi3 = enemi.clone();
+    enemi3.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+    
+    var enemi4 = enemi.clone();
+    enemi4.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+    
+    var enemi5 = enemi.clone();
+    enemi5.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+    
+    var enemi6 = enemi.clone();
+    enemi6.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+    
+    var enemi7 = enemi.clone();
+    enemi7.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+    
+    var enemi8 = enemi.clone();
+    enemi8.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+    
+    var enemi9 = enemi.clone();
+    enemi9.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+    
+    var enemi10 = enemi.clone();
+    enemi10.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
 
     scene.add(cubo);
-    scene.add(cubo2);
-
-    collisionObjects.push(cubo2);
+    scene.add(enemi);
+    scene.add(enemi1);
+    scene.add(enemi2);
+    scene.add(enemi3);
+    scene.add(enemi4);
+    scene.add(enemi5);
+    scene.add(enemi6);
+    scene.add(enemi7);
+    scene.add(enemi8);
+    scene.add(enemi9);
+    scene.add(enemi10);
 
     cubo.name = "cubo01";
-    cubo2.name = "cubo02";
+    enemi.name = "enemi";
+    enemi1.name = "enemi1";
+    enemi2.name = "enemi2";
+    enemi3.name = "enemi3";
+    enemi4.name = "enemi4";
+    enemi5.name = "enemi5";
+    enemi6.name = "enemi6";
+    enemi7.name = "enemi7";
+    enemi8.name = "enemi8";
+    enemi9.name = "enemi9";
+    enemi10.name = "enemi10";
+
+    enemi.enemigo = new Enemigos(50, 5, false, 0);
+    enemi1.enemigo = new Enemigos(50, 5, false, 0);
+    enemi2.enemigo = new Enemigos(50, 5, false, 0);
+    enemi3.enemigo = new Enemigos(50, 5, false, 0);
+    enemi4.enemigo = new Enemigos(50, 5, false, 0);
+    enemi5.enemigo = new Enemigos(50, 5, false, 0);
+    enemi6.enemigo = new Enemigos(50, 5, false, 1);
+    enemi7.enemigo = new Enemigos(50, 5, false, 1);
+    enemi8.enemigo = new Enemigos(50, 5, false, 1);
+    enemi9.enemigo = new Enemigos(50, 5, false, 1);
+    enemi10.enemigo = new Enemigos(50, 5, false, 1);
+
+    collisionObjects.push(enemi);
+    collisionObjects.push(enemi1);
+    collisionObjects.push(enemi2);
+    collisionObjects.push(enemi3);
+    collisionObjects.push(enemi4);
+    collisionObjects.push(enemi5);
+    collisionObjects.push(enemi6);
+    collisionObjects.push(enemi7);
+    collisionObjects.push(enemi8);
+    collisionObjects.push(enemi9);
+    collisionObjects.push(enemi10);
 
     $("#gameplay").append(renderer.domElement);
     render();
 
-    setInterval(cargaEnemigos, 1000);
+    intervalo = setInterval(cargaEnemigos, 5000);
     document.addEventListener('keydown', onKeyDown);
     document.addEventListener('keyup', onKeyUp);
 });
@@ -74,7 +147,17 @@ function render() {
     var shoot = false;
 
     var nave = scene.getObjectByName("cubo01");
-    var enemigo = scene.getObjectByName("cubo02");
+    var enemigo = scene.getObjectByName("enemi");
+    var enemigo1 = scene.getObjectByName("enemi1");
+    var enemigo2 = scene.getObjectByName("enemi2");
+    var enemigo3 = scene.getObjectByName("enemi3");
+    var enemigo4 = scene.getObjectByName("enemi4");
+    var enemigo5 = scene.getObjectByName("enemi5");
+    var enemigo6 = scene.getObjectByName("enemi6");
+    var enemigo7 = scene.getObjectByName("enemi7");
+    var enemigo8 = scene.getObjectByName("enemi8");
+    var enemigo9 = scene.getObjectByName("enemi9");
+    var enemigo10 = scene.getObjectByName("enemi10");
 
     if (keys["A"] && nave.position.x > -25) left_rigth = -nave.player.velocidad;
     else if (keys["D"] && nave.position.x < 25) left_rigth = nave.player.velocidad;
@@ -92,8 +175,7 @@ function render() {
     nave.rotation.y += rotate * deltaTime;
     var axis = new THREE.Vector3( 0, 1, 0 );
     nave.front.applyAxisAngle(axis, rotate * deltaTime);
-
-    console.log(nave.front);
+    nave.front.material = material2;
     
     if(shoot){
         rayCaster.set(nave.position, nave.front);
@@ -103,23 +185,32 @@ function render() {
             console.log("colisionando");
             console.log(collision[0].distance);
             var obj = collision[0].object;
-            enemigo.enemigo.recibirDaño(nave.player.hacerDaño());
-            enemigo.material = material3;
-            console.log(enemigo.enemigo.vida);
-            
 
-            if (enemigo.enemigo.vida <= 0){
-                obj.position.set(0, 0, 50);
+            obj.enemigo.recibirDaño(nave.player.hacerDaño());
+            obj.material = material3;
+            console.log(obj.enemigo.vida);            
+
+            if (obj.enemigo.vida <= 0){
+                obj.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
+                obj.enemigo.vida = 50;
             }
         }
     }
     else {
-        enemigo.material = material2;
+        for(var i = 0; i < collisionObjects.length; i++) {
+            collisionObjects[i].material = material2;
+        }
     }
 
+    for(var i = 0; i < collisionObjects.length; i++) {
+        if(collisionObjects[i].enemigo.isReady == true) {
+            collisionObjects[i].lookAt(nave.position);
 
-
-    //enemigo.position.z += velocidad * deltaTime
+            if(i < collisionObjects.length/2)
+                collisionObjects[i].translateX(collisionObjects[i].enemigo.velocidad* deltaTime);
+            collisionObjects[i].translateZ(collisionObjects[i].enemigo.velocidad * deltaTime);
+        }
+    }
 
     renderer.render(scene, camera);
 }
@@ -156,11 +247,20 @@ function setupScene() {
     $("#gameplay").append(renderer.domElement);
 }
 
-function posicionAleatoria(){
+function posicionAleatoriaAncho(){
     return Math.floor((Math.random() * (25-(-25)))) + (-25);
 }
 
+function posicionAleatoriaLargo(){
+    return Math.floor((Math.random() * (13-(-13)))) + (-13);
+}
+
 function cargaEnemigos() {
-    const d = new Date();
-    document.getElementById("demo").innerHTML = d.toLocaleTimeString();
+    if (ciclos_Timer < collisionObjects.length) {
+        collisionObjects[ciclos_Timer].enemigo.isReady = true;
+        ciclos_Timer ++;
+    }
+    else {
+        clearInterval(intervalo);
+    }
 }
