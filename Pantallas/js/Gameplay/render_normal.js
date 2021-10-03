@@ -10,11 +10,13 @@ var keys = {};
 var velocidad = 10;
 var lastQ = false;
 var rayCaster;
+var rayCaster2;
 var intervalo;
 var ciclos_Timer = 0;
 var puntuacion = 0;
-var isHard = false;
+var isHard = true;
 var collisionObjects = [];
+var collisionMeteoros = [];
 var material3 = new THREE.MeshLambertMaterial({
     color: new THREE.Color(0.7, 0.0, 0.0)
 });
@@ -24,6 +26,7 @@ $(document).ready(function() {
     
     var time = 5000;
     rayCaster = new THREE.Raycaster();
+    rayCaster2 = new THREE.Raycaster();
 
     var geometry = new THREE.BoxGeometry(1, 1, 1);
     var material = new THREE.MeshLambertMaterial({
@@ -39,6 +42,12 @@ $(document).ready(function() {
     var cubo = new THREE.Mesh(geometry, material);
     cubo.front = new THREE.Vector3(0, 0, -1);
     cubo.player = new Player(50, 10, 1, true);
+    cubo.rayos = [
+        new THREE.Vector3(1, 0, 0),
+        new THREE.Vector3(-1, 0, 0),
+        new THREE.Vector3(0, 0, 1),
+        new THREE.Vector3(0, 0, -1),
+    ];
 
     var enemi = new THREE.Mesh(geometry, material2);
     enemi.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
@@ -136,6 +145,7 @@ $(document).ready(function() {
     scene.add(item);
     item.name = "item";
     item.tipo = 0;
+    collisionObjects.push(item);
 
     if(isHard) {
         var geometryMeteoro = new THREE.BoxGeometry(2, 2, 2);
@@ -175,6 +185,12 @@ $(document).ready(function() {
         meteoro3.invertir = false;
         meteoro4.invertir = false;
         meteoro5.invertir = false;
+
+        collisionMeteoros.push(meteoro1);
+        collisionMeteoros.push(meteoro2);
+        collisionMeteoros.push(meteoro3);
+        collisionMeteoros.push(meteoro4);
+        collisionMeteoros.push(meteoro5);
     }
 
     $("#gameplay").append(renderer.domElement);
@@ -219,6 +235,8 @@ function render() {
     var enemigo9 = scene.getObjectByName("enemi9");
     var enemigo10 = scene.getObjectByName("enemi10");
 
+    var item = scene.getObjectByName("item");
+
     if (keys["A"] && nave.position.x > -25) left_rigth = -nave.player.velocidad;
     else if (keys["D"] && nave.position.x < 25) left_rigth = nave.player.velocidad;
 
@@ -236,12 +254,41 @@ function render() {
     var axis = new THREE.Vector3( 0, 1, 0 );
     nave.front.applyAxisAngle(axis, rotate * deltaTime);
     nave.front.material = material2;
+
+    for(var i = 0; i < nave.rayos.length; i++) {
+        rayCaster2.set(nave.position, nave.rayos[i]);
+
+        var collision = rayCaster2.intersectObjects(collisionObjects, true);
+        if (collision.length > 0 && collision[0].distance < 1) {
+            var obj = collision[0].object;
+            obj.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
+
+            if (obj.name != "item") {
+                obj.enemigo.vida = 50;
+                nave.player.vida -= 20;
+            }
+            else {
+                if (obj.tipo == 1){ nave.player.vida = 50; }
+                if (obj.tipo == 2){ nave.player.aumentarVelocidad(3); }
+                if (obj.tipo == 3){ nave.player.aumentarPoder(5); }
+                console.log(nave.player);
+            }
+        }
+
+        if(isHard) {
+            collision = rayCaster2.intersectObjects(collisionMeteoros, true);
+            if (collision.length > 0 && collision[0].distance < 1) {
+                nave.player.vida -= 50;
+            }
+        }
+    }
+
     
     if(shoot){
         rayCaster.set(nave.position, nave.front);
         var collision = rayCaster.intersectObjects(collisionObjects, true);				
         
-        if (collision.length > 0) {
+        if (collision.length > 0 && collision[0].object.name != "item") {
             console.log("colisionando");
             console.log(collision[0].distance);
             var obj = collision[0].object;
@@ -259,17 +306,21 @@ function render() {
     }
     else {
         for(var i = 0; i < collisionObjects.length; i++) {
-            collisionObjects[i].material = material2;
+            if(collisionObjects[i].name != "item"){
+                collisionObjects[i].material = material2;
+            }
         }
     }
 
     for(var i = 0; i < collisionObjects.length; i++) {
-        if(collisionObjects[i].enemigo.isReady == true) {
-            collisionObjects[i].lookAt(nave.position);
+        if(collisionObjects[i].name != "item"){
+            if(collisionObjects[i].enemigo.isReady == true) {
+                collisionObjects[i].lookAt(nave.position);
 
-            if(i < collisionObjects.length/2)
-                collisionObjects[i].translateX(collisionObjects[i].enemigo.velocidad* deltaTime);
-            collisionObjects[i].translateZ(collisionObjects[i].enemigo.velocidad * deltaTime);
+                if(i < collisionObjects.length/2)
+                    collisionObjects[i].translateX(collisionObjects[i].enemigo.velocidad* deltaTime);
+                collisionObjects[i].translateZ(collisionObjects[i].enemigo.velocidad * deltaTime);
+            }
         }
     }
 
@@ -354,7 +405,9 @@ function itemAleatorio(){
 
 function cargaEnemigos() {
     if (ciclos_Timer < collisionObjects.length) {
-        collisionObjects[ciclos_Timer].enemigo.isReady = true;
+        if(collisionObjects[ciclos_Timer].name != "item"){
+            collisionObjects[ciclos_Timer].enemigo.isReady = true;
+        }
         ciclos_Timer ++;
     }
     else {
