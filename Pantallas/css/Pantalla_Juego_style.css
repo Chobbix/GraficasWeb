@@ -1,11 +1,4 @@
-body{
-    margin: 0;
-    padding: 0;
-    background: url(../Elementos/Juego_fin.jpg) no-repeat center top;
-    background-size: cover;
-    height: 100vh;
-    font-family: 'Dhurjati', sans-serif;
-}
+
 
 
 .botones-box button[type="button"] {
