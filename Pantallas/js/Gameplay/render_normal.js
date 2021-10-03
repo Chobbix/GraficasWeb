@@ -126,6 +126,17 @@ $(document).ready(function() {
     collisionObjects.push(enemi9);
     collisionObjects.push(enemi10);
 
+    var geometryItem = new THREE.BoxGeometry(1, 1, 1);
+    var materialItem = new THREE.MeshLambertMaterial({
+        color: new THREE.Color(0.0, 0.0, 0.4)
+    });
+
+    var item = new THREE.Mesh(geometryItem, materialItem);
+    item.position.set(0, 50, 0);
+    scene.add(item);
+    item.name = "item";
+    item.tipo = 0;
+
     if(isHard) {
         var geometryMeteoro = new THREE.BoxGeometry(2, 2, 2);
         var materialMeteoro = new THREE.MeshLambertMaterial({
@@ -172,6 +183,7 @@ $(document).ready(function() {
     if(isHard) time = 3000;
 
     intervalo = setInterval(cargaEnemigos, time);
+    setInterval(cargaItem, 10000);
     document.addEventListener('keydown', onKeyDown);
     document.addEventListener('keyup', onKeyUp);
 });
@@ -336,8 +348,8 @@ function posicionAleatoriaLargo(){
     return Math.floor((Math.random() * (13-(-13)))) + (-13);
 }
 
-function velocidadAleatoria(){
-    return Math.floor((Math.random() * (5-1))) + 1;
+function itemAleatorio(){
+    return Math.floor((Math.random() * (4-1))) + 1;
 }
 
 function cargaEnemigos() {
@@ -348,4 +360,11 @@ function cargaEnemigos() {
     else {
         clearInterval(intervalo);
     }
+}
+
+function cargaItem () {
+    var item = scene.getObjectByName("item");
+    item.tipo = itemAleatorio();
+    item.position.set(posicionAleatoriaAncho(), 0, posicionAleatoriaLargo());
+    console.log(item.position);
 }
