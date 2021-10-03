@@ -12,6 +12,8 @@ var lastQ = false;
 var rayCaster;
 var intervalo;
 var ciclos_Timer = 0;
+var puntuacion = 0;
+var isHard = false;
 var collisionObjects = [];
 var material3 = new THREE.MeshLambertMaterial({
     color: new THREE.Color(0.7, 0.0, 0.0)
@@ -19,7 +21,8 @@ var material3 = new THREE.MeshLambertMaterial({
 
 $(document).ready(function() {
     setupScene();
-
+    
+    var time = 5000;
     rayCaster = new THREE.Raycaster();
 
     var geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -96,17 +99,20 @@ $(document).ready(function() {
     enemi9.name = "enemi9";
     enemi10.name = "enemi10";
 
-    enemi.enemigo = new Enemigos(50, 5, false, 0);
-    enemi1.enemigo = new Enemigos(50, 5, false, 0);
-    enemi2.enemigo = new Enemigos(50, 5, false, 0);
-    enemi3.enemigo = new Enemigos(50, 5, false, 0);
-    enemi4.enemigo = new Enemigos(50, 5, false, 0);
-    enemi5.enemigo = new Enemigos(50, 5, false, 0);
-    enemi6.enemigo = new Enemigos(50, 5, false, 1);
-    enemi7.enemigo = new Enemigos(50, 5, false, 1);
-    enemi8.enemigo = new Enemigos(50, 5, false, 1);
-    enemi9.enemigo = new Enemigos(50, 5, false, 1);
-    enemi10.enemigo = new Enemigos(50, 5, false, 1);
+    var vel_enem = 5;
+    if(isHard) vel_enem = 9;
+
+    enemi.enemigo = new Enemigos(50, vel_enem, false, 0);
+    enemi1.enemigo = new Enemigos(50, vel_enem, false, 0);
+    enemi2.enemigo = new Enemigos(50, vel_enem, false, 0);
+    enemi3.enemigo = new Enemigos(50, vel_enem, false, 0);
+    enemi4.enemigo = new Enemigos(50, vel_enem, false, 0);
+    enemi5.enemigo = new Enemigos(50, vel_enem, false, 0);
+    enemi6.enemigo = new Enemigos(50, vel_enem, false, 1);
+    enemi7.enemigo = new Enemigos(50, vel_enem, false, 1);
+    enemi8.enemigo = new Enemigos(50, vel_enem, false, 1);
+    enemi9.enemigo = new Enemigos(50, vel_enem, false, 1);
+    enemi10.enemigo = new Enemigos(50, vel_enem, false, 1);
 
     collisionObjects.push(enemi);
     collisionObjects.push(enemi1);
@@ -120,10 +126,52 @@ $(document).ready(function() {
     collisionObjects.push(enemi9);
     collisionObjects.push(enemi10);
 
+    if(isHard) {
+        var geometryMeteoro = new THREE.BoxGeometry(2, 2, 2);
+        var materialMeteoro = new THREE.MeshLambertMaterial({
+            color: new THREE.Color(0.7, 0.5, 0.0)
+        });
+
+        var meteoro1 = new THREE.Mesh(geometryMeteoro, materialMeteoro);
+        meteoro1.position.set(posicionAleatoriaAncho(), 0, -18);
+
+        var meteoro2 = meteoro1.clone();
+        meteoro2.position.set(posicionAleatoriaAncho(), 0, 18);
+
+        var meteoro3 = meteoro1.clone();
+        meteoro3.position.set(posicionAleatoriaAncho(), 0, -18);
+
+        var meteoro4 = meteoro1.clone();
+        meteoro4.position.set(posicionAleatoriaAncho(), 0, 18);
+
+        var meteoro5 = meteoro1.clone();
+        meteoro5.position.set(posicionAleatoriaAncho(), 0, -18);
+
+        scene.add(meteoro1);
+        scene.add(meteoro2);
+        scene.add(meteoro3);
+        scene.add(meteoro4);
+        scene.add(meteoro5);
+
+        meteoro1.name = "meteoro1";
+        meteoro2.name = "meteoro2";
+        meteoro3.name = "meteoro3";
+        meteoro4.name = "meteoro4";
+        meteoro5.name = "meteoro5";
+
+        meteoro1.invertir = false;
+        meteoro2.invertir = false;
+        meteoro3.invertir = false;
+        meteoro4.invertir = false;
+        meteoro5.invertir = false;
+    }
+
     $("#gameplay").append(renderer.domElement);
     render();
 
-    intervalo = setInterval(cargaEnemigos, 5000);
+    if(isHard) time = 3000;
+
+    intervalo = setInterval(cargaEnemigos, time);
     document.addEventListener('keydown', onKeyDown);
     document.addEventListener('keyup', onKeyUp);
 });
@@ -193,6 +241,7 @@ function render() {
             if (obj.enemigo.vida <= 0){
                 obj.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
                 obj.enemigo.vida = 50;
+                puntuacion ++;
             }
         }
     }
@@ -210,6 +259,38 @@ function render() {
                 collisionObjects[i].translateX(collisionObjects[i].enemigo.velocidad* deltaTime);
             collisionObjects[i].translateZ(collisionObjects[i].enemigo.velocidad * deltaTime);
         }
+    }
+
+    if(isHard) {
+        var meteoro1 = scene.getObjectByName("meteoro1");
+        var meteoro2 = scene.getObjectByName("meteoro2");
+        var meteoro3 = scene.getObjectByName("meteoro3");
+        var meteoro4 = scene.getObjectByName("meteoro4");
+        var meteoro5 = scene.getObjectByName("meteoro5");
+        
+        if(!meteoro1.invertir) meteoro1.position.z += 2 * deltaTime;
+        if(!meteoro2.invertir) meteoro2.position.z -= 3 * deltaTime;
+        if(!meteoro3.invertir) meteoro3.position.z += 4 * deltaTime;
+        if(!meteoro4.invertir) meteoro4.position.z -= 5 * deltaTime;
+        if(!meteoro5.invertir) meteoro5.position.z += 6 * deltaTime;
+
+        if(meteoro1.invertir) meteoro1.position.z -= 2 * deltaTime;
+        if(meteoro2.invertir) meteoro2.position.z += 3 * deltaTime;
+        if(meteoro3.invertir) meteoro3.position.z -= 4 * deltaTime;
+        if(meteoro4.invertir) meteoro4.position.z += 5 * deltaTime;
+        if(meteoro5.invertir) meteoro5.position.z -= 6 * deltaTime;
+
+        if(meteoro1.position.z > 18)  {meteoro1.invertir = true; meteoro1.position.x = posicionAleatoriaLargo();}
+        if(meteoro2.position.z < -18) {meteoro2.invertir = true; meteoro2.position.x = posicionAleatoriaLargo();}
+        if(meteoro3.position.z > 18)  {meteoro3.invertir = true; meteoro3.position.x = posicionAleatoriaLargo();}
+        if(meteoro4.position.z < -18) {meteoro4.invertir = true; meteoro4.position.x = posicionAleatoriaLargo();}
+        if(meteoro5.position.z > 18)  {meteoro5.invertir = true; meteoro5.position.x = posicionAleatoriaLargo();}
+
+        if(meteoro1.position.z < -18) {meteoro1.invertir = false; meteoro1.position.x = posicionAleatoriaLargo();}
+        if(meteoro2.position.z > 18)  {meteoro2.invertir = false; meteoro2.position.x = posicionAleatoriaLargo();}
+        if(meteoro3.position.z < -18) {meteoro3.invertir = false; meteoro3.position.x = posicionAleatoriaLargo();}
+        if(meteoro4.position.z > 18)  {meteoro4.invertir = false; meteoro4.position.x = posicionAleatoriaLargo();}
+        if(meteoro5.position.z < -18) {meteoro5.invertir = false; meteoro5.position.x = posicionAleatoriaLargo();}
     }
 
     renderer.render(scene, camera);
@@ -253,6 +334,10 @@ function posicionAleatoriaAncho(){
 
 function posicionAleatoriaLargo(){
     return Math.floor((Math.random() * (13-(-13)))) + (-13);
+}
+
+function velocidadAleatoria(){
+    return Math.floor((Math.random() * (5-1))) + 1;
 }
 
 function cargaEnemigos() {
