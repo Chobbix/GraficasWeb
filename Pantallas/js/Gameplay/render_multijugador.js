@@ -1,3 +1,7 @@
+// http://localhost/GW_git/GitHub/GraficasWeb/Pantallas/html/Pantalla_Juego_Multijugador.html
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.118/build/three.module.js';
+import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
+
 
 var scene;
 var renderer;
@@ -19,6 +23,18 @@ var puntuacion = 0;
 var isHard = true;
 var collisionObjects = [];
 var collisionMeteoros = [];
+var mixers=[];
+var mixers2=[];
+var action, action2, action3, action4;
+var flag=false;
+var flag2=false;
+var isWorldReady = [ false, false, false, false, false];
+
+var material2 = new THREE.MeshPhongMaterial({
+    color: new THREE.Color(0.5, 0.5, 0.5),
+    specular: new THREE.Color(1, 1, 1),
+    shininess: 50
+});
 var material3 = new THREE.MeshLambertMaterial({
     color: new THREE.Color(0.7, 0.0, 0.0)
 });
@@ -37,13 +53,88 @@ $(document).ready(function() {
         color: new THREE.Color(0.7, 0.0, 0.0)
     });
 
-    material2 = new THREE.MeshPhongMaterial({
-        color: new THREE.Color(0.5, 0.5, 0.5),
-        specular: new THREE.Color(1, 1, 1),
-        shininess: 50
+
+    const loader = new FBXLoader();
+    loader.load('../Elementos/modelos/Star_Fighter/Textura/StarFighter2.fbx', (nave) => {
+
+        nave.scale.setScalar(.2); 
+        nave.rotation.y = THREE.Math.degToRad(180);
+        
+        const anim = new FBXLoader();
+        anim.load('../Elementos/modelos/Star_Fighter/Textura/StarFighter2Anim.fbx', (anim) => {
+            nave.mixer = new THREE.AnimationMixer(nave);
+            mixers.push(nave.mixer);
+            action = nave.mixer.clipAction(anim.animations[0]);
+            action2 = nave.mixer.clipAction(anim.animations[1]);
+            action.play();
+            action2.play();
+
+            nave.traverse( function ( child ) {
+                if ( child.isMesh ) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            } );
+
+            nave.front = new THREE.Vector3(0, 0, -1);
+            nave.player = new Player(50, 10, 1, true);
+            nave.rayos = [
+                new THREE.Vector3(1, 0, 0),
+                new THREE.Vector3(-1, 0, 0),
+                new THREE.Vector3(0, 0, 1),
+                new THREE.Vector3(0, 0, -1),
+            ];
+            nave.position.set(-15, 0, 0);
+
+            scene.add(nave);
+
+            nave.name = "cubo01";
+            isWorldReady[0] = true
+        });
+        
     });
 
-    var cubo = new THREE.Mesh(geometry, material);
+    const loader2 = new FBXLoader();
+    loader2.load('../Elementos/modelos/Star_Fighter/Textura/StarFighter2Nav2.fbx', (nave2) => {
+
+        nave2.scale.setScalar(.2); 
+        //nave2.rotation.y = THREE.Math.degToRad(180);
+        
+        const anim2 = new FBXLoader();
+        anim2.load('../Elementos/modelos/Star_Fighter/Textura/StarFighter2Anim.fbx', (anim) => {
+            nave2.mixer = new THREE.AnimationMixer(nave2);
+            mixers2.push(nave2.mixer);
+            action3 = nave2.mixer.clipAction(anim.animations[0]);
+            action4 = nave2.mixer.clipAction(anim.animations[1]);
+            action3.play();
+            action4.play();
+
+            /*nave2.traverse( function ( child ) {
+                if ( child.isMesh ) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            } );*/
+
+            nave2.front = new THREE.Vector3(0, 0, -1);
+            nave2.player = new Player(50, 10, 1, true);
+            nave2.rayos = [
+                new THREE.Vector3(1, 0, 0),
+                new THREE.Vector3(-1, 0, 0),
+                new THREE.Vector3(0, 0, 1),
+                new THREE.Vector3(0, 0, -1),
+            ];
+            nave2.position.set(15, 0, 0);
+
+            scene.add(nave2);
+
+            nave2.name = "cubo02";
+            isWorldReady[1] = true;
+        });
+        
+    });
+    
+    /*var cubo = new THREE.Mesh(geometry, material);
     cubo.front = new THREE.Vector3(0, 0, -1);
     cubo.player = new Player(50, 10, 1, true);
     cubo.rayos = [
@@ -66,110 +157,159 @@ $(document).ready(function() {
 
 
     cubo.position.set(-15, 0, 0);
-    cubo2.position.set(15, 0, 0);
+    cubo2.position.set(15, 0, 0);*/
 
 
-    var enemi = new THREE.Mesh(geometry, material2);
-    enemi.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+    LoadFBX('../Elementos/modelos/UFO/UFO_Enemigo1i2.fbx', (enemi) => {
+        enemi.scale.setScalar(1); 
+        //var enemi = new THREE.Mesh(geometry, material2);
+        enemi.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
 
-    var enemi1 = enemi.clone();
-    enemi1.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+        var enemi1 = enemi.clone();
+        enemi1.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
 
-    var enemi2 = enemi.clone();
-    enemi2.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+        var enemi2 = enemi.clone();
+        enemi2.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
 
-    var enemi3 = enemi.clone();
-    enemi3.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-    
-    var enemi4 = enemi.clone();
-    enemi4.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-    
-    var enemi5 = enemi.clone();
-    enemi5.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-    
-    var enemi6 = enemi.clone();
-    enemi6.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-    
-    var enemi7 = enemi.clone();
-    enemi7.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-    
-    var enemi8 = enemi.clone();
-    enemi8.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-    
-    var enemi9 = enemi.clone();
-    enemi9.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-    
-    var enemi10 = enemi.clone();
-    enemi10.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+        var enemi3 = enemi.clone();
+        enemi3.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+        
+        var enemi4 = enemi.clone();
+        enemi4.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+        
+        var enemi5 = enemi.clone();
+        enemi5.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+        
+        var enemi6 = enemi.clone();
+        enemi6.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+        
+        var enemi7 = enemi.clone();
+        enemi7.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+        
+        var enemi8 = enemi.clone();
+        enemi8.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+        
+        var enemi9 = enemi.clone();
+        enemi9.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
+        
+        var enemi10 = enemi.clone();
+        enemi10.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
 
-    scene.add(cubo);
-    scene.add(cubo2);
-    scene.add(enemi);
-    scene.add(enemi1);
-    scene.add(enemi2);
-    scene.add(enemi3);
-    scene.add(enemi4);
-    scene.add(enemi5);
-    scene.add(enemi6);
-    scene.add(enemi7);
-    scene.add(enemi8);
-    scene.add(enemi9);
-    scene.add(enemi10);
+        scene.add(enemi);
+        scene.add(enemi1);
+        scene.add(enemi2);
+        scene.add(enemi3);
+        scene.add(enemi4);
+        scene.add(enemi5);
+        scene.add(enemi6);
+        scene.add(enemi7);
+        scene.add(enemi8);
+        scene.add(enemi9);
+        scene.add(enemi10);
 
-    cubo.name = "cubo01";
-    cubo2.name = "cubo02";
-    enemi.name = "enemi";
-    enemi1.name = "enemi1";
-    enemi2.name = "enemi2";
-    enemi3.name = "enemi3";
-    enemi4.name = "enemi4";
-    enemi5.name = "enemi5";
-    enemi6.name = "enemi6";
-    enemi7.name = "enemi7";
-    enemi8.name = "enemi8";
-    enemi9.name = "enemi9";
-    enemi10.name = "enemi10";
+        enemi.name = "enemi";
+        enemi1.name = "enemi1";
+        enemi2.name = "enemi2";
+        enemi3.name = "enemi3";
+        enemi4.name = "enemi4";
+        enemi5.name = "enemi5";
+        enemi6.name = "enemi6";
+        enemi7.name = "enemi7";
+        enemi8.name = "enemi8";
+        enemi9.name = "enemi9";
+        enemi10.name = "enemi10";
 
-    var vel_enem = 5;
+        var vel_enem = 5;
 
-    enemi.enemigo = new Enemigos(50, vel_enem, false, 0, 1);
-    enemi1.enemigo = new Enemigos(50, vel_enem, false, 0, 2);
-    enemi2.enemigo = new Enemigos(50, vel_enem, false, 0, 1);
-    enemi3.enemigo = new Enemigos(50, vel_enem, false, 0, 2);
-    enemi4.enemigo = new Enemigos(50, vel_enem, false, 0, 1);
-    enemi5.enemigo = new Enemigos(50, vel_enem, false, 0, 2);
-    enemi6.enemigo = new Enemigos(50, vel_enem, false, 1, 1);
-    enemi7.enemigo = new Enemigos(50, vel_enem, false, 1, 2);
-    enemi8.enemigo = new Enemigos(50, vel_enem, false, 1, 1);
-    enemi9.enemigo = new Enemigos(50, vel_enem, false, 1, 2);
-    enemi10.enemigo = new Enemigos(50, vel_enem, false, 1, 1);
+        enemi.enemigo = new Enemigos(50, vel_enem, false, 0, 1);
+        enemi1.enemigo = new Enemigos(50, vel_enem, false, 0, 2);
+        enemi2.enemigo = new Enemigos(50, vel_enem, false, 0, 1);
+        enemi3.enemigo = new Enemigos(50, vel_enem, false, 0, 2);
+        enemi4.enemigo = new Enemigos(50, vel_enem, false, 0, 1);
+        enemi5.enemigo = new Enemigos(50, vel_enem, false, 0, 2);
+        enemi6.enemigo = new Enemigos(50, vel_enem, false, 1, 1);
+        enemi7.enemigo = new Enemigos(50, vel_enem, false, 1, 2);
+        enemi8.enemigo = new Enemigos(50, vel_enem, false, 1, 1);
+        enemi9.enemigo = new Enemigos(50, vel_enem, false, 1, 2);
+        enemi10.enemigo = new Enemigos(50, vel_enem, false, 1, 1);
 
-    collisionObjects.push(enemi);
-    collisionObjects.push(enemi1);
-    collisionObjects.push(enemi2);
-    collisionObjects.push(enemi3);
-    collisionObjects.push(enemi4);
-    collisionObjects.push(enemi5);
-    collisionObjects.push(enemi6);
-    collisionObjects.push(enemi7);
-    collisionObjects.push(enemi8);
-    collisionObjects.push(enemi9);
-    collisionObjects.push(enemi10);
+        collisionObjects.push(enemi);
+        collisionObjects.push(enemi1);
+        collisionObjects.push(enemi2);
+        collisionObjects.push(enemi3);
+        collisionObjects.push(enemi4);
+        collisionObjects.push(enemi5);
+        collisionObjects.push(enemi6);
+        collisionObjects.push(enemi7);
+        collisionObjects.push(enemi8);
+        collisionObjects.push(enemi9);
+        collisionObjects.push(enemi10);
+
+        isWorldReady[4] = true;
+    });
 
     var geometryItem = new THREE.BoxGeometry(1, 1, 1);
     var materialItem = new THREE.MeshLambertMaterial({
         color: new THREE.Color(0.0, 0.0, 0.4)
     });
 
-    var item = new THREE.Mesh(geometryItem, materialItem);
-    item.position.set(0, 50, 0);
-    scene.add(item);
-    item.name = "item";
-    item.tipo = 0;
-    collisionObjects.push(item);
+     LoadFBX("../Elementos/modelos/Item/pillA.fbx", (item) => {
+        //var item = new THREE.Mesh(geometryItem, materialItem);
+            item.scale.setScalar(.5); 
+            item.position.set(0, 50, 0);
+            scene.add(item);
+            item.name = "item";
+            item.tipo = 0;
+            collisionObjects.push(item);
+            isWorldReady[2] = true;
+    });
 
     if(isHard) {
-        var geometryMeteoro = new THREE.BoxGeometry(2, 2, 2);
+        
+        LoadFBX("../Elementos/modelos/Meteorito/Meteorito.fbx", (meteoroOBJ) => {
+
+            meteoroOBJ.scale.setScalar(1.5);
+            meteoroOBJ.position.set(posicionAleatoriaAncho(), 0, -18);
+
+            var meteoro2 = meteoroOBJ.clone();
+            meteoro2.position.set(posicionAleatoriaAncho(), 0, 18);
+
+            var meteoro3 = meteoroOBJ.clone();
+            meteoro3.position.set(posicionAleatoriaAncho(), 0, -18);
+
+            var meteoro4 = meteoroOBJ.clone();
+            meteoro4.position.set(posicionAleatoriaAncho(), 0, 18);
+
+            var meteoro5 = meteoroOBJ.clone();
+            meteoro5.position.set(posicionAleatoriaAncho(), 0, -18);
+
+            scene.add(meteoroOBJ);
+            scene.add(meteoro2);
+            scene.add(meteoro3);
+            scene.add(meteoro4);
+            scene.add(meteoro5);
+
+            meteoroOBJ.name = "meteoro1";
+            meteoro2.name = "meteoro2";
+            meteoro3.name = "meteoro3";
+            meteoro4.name = "meteoro4";
+            meteoro5.name = "meteoro5";
+    
+            meteoroOBJ.invertir = false;
+            meteoro2.invertir = false;
+            meteoro3.invertir = false;
+            meteoro4.invertir = false;
+            meteoro5.invertir = false;
+    
+            collisionMeteoros.push(meteoroOBJ);
+            collisionMeteoros.push(meteoro2);
+            collisionMeteoros.push(meteoro3);
+            collisionMeteoros.push(meteoro4);
+            collisionMeteoros.push(meteoro5);
+
+            isWorldReady[3] = true;
+        });
+        /*var geometryMeteoro = new THREE.BoxGeometry(2, 2, 2);
         var materialMeteoro = new THREE.MeshLambertMaterial({
             color: new THREE.Color(0.7, 0.5, 0.0)
         });
@@ -211,7 +351,7 @@ $(document).ready(function() {
         collisionMeteoros.push(meteoro2);
         collisionMeteoros.push(meteoro3);
         collisionMeteoros.push(meteoro4);
-        collisionMeteoros.push(meteoro5);
+        collisionMeteoros.push(meteoro5);*/
     }
 
     $("#gameplay").append(renderer.domElement);
@@ -225,6 +365,21 @@ $(document).ready(function() {
     document.addEventListener('keyup', onKeyUp);
 });
 
+function LoadFBX(fbxFile, onLoadCallback) {
+		
+    const loader = new FBXLoader();
+    loader.load(fbxFile, (fbx) => {
+        fbx.traverse( function ( child ) {
+             if ( child.isMesh ) {
+                child.castShadow = true;
+                 child.receiveShadow = true;
+             }
+        } );
+
+        onLoadCallback(fbx);
+    });
+}
+
 function onKeyDown(event) {
     lastQ = keys["Q"];
     keys[String.fromCharCode(event.keyCode)] = true;
@@ -232,6 +387,7 @@ function onKeyDown(event) {
 
 function onKeyUp(event) {
     keys[String.fromCharCode(event.keyCode)] = false;
+    KEYS[key]=false;
 }
 
 function render() {
@@ -248,6 +404,7 @@ function render() {
     var rotate2 = 0;
     var shoot2 = false;
 
+    if (isWorldReady[0] & isWorldReady[1]){
     var nave = scene.getObjectByName("cubo01");
     var nave2 = scene.getObjectByName("cubo02");
 
@@ -277,6 +434,35 @@ function render() {
 
     if (keys["P"]) shoot2 = true;
 
+    if(mixers.length>0){
+        for(var i=0; i<mixers.length;i++){
+            mixers[i].update(deltaTime);
+        }
+        if(flag){
+            action.weight=0;
+            action2.weight=1;
+
+            flag=false;
+        }else{
+            action.weight=1;
+            action2.weight=0;
+        }
+    }
+
+    if(mixers2.length>0){
+        for(var i=0; i<mixers2.length;i++){
+            mixers2[i].update(deltaTime);
+        }
+        if(flag2){
+            action3.weight=0;
+            action4.weight=1;
+
+            flag2=false;
+        }else{
+            action3.weight=1;
+            action4.weight=0;
+        }
+    }
 
 
     nave.position.x += left_rigth * deltaTime;
@@ -295,7 +481,7 @@ function render() {
     nave2.front.material = material2;
 
 
-
+    if(isWorldReady[1] && isWorldReady[2] && isWorldReady[3]){
     for(var i = 0; i < nave.rayos.length; i++) {
         rayCaster2.set(nave.position, nave.rayos[i]);
 
@@ -326,6 +512,7 @@ function render() {
 
     
     if(shoot){
+        flag=true;
         rayCaster.set(nave.position, nave.front);
         var collision = rayCaster.intersectObjects(collisionObjects, true);				
         
@@ -386,6 +573,7 @@ function render() {
 
     
     if(shoot2){
+        flag2=true;
         rayCaster4.set(nave2.position, nave2.front);
         var collision = rayCaster4.intersectObjects(collisionObjects, true);				
         
@@ -414,9 +602,6 @@ function render() {
         }
     }
 
-
-
-
     for(var i = 0; i < collisionObjects.length; i++) {
         if(collisionObjects[i].name != "item"){
             if(collisionObjects[i].enemigo.isReady == true) {
@@ -429,10 +614,12 @@ function render() {
             }
         }
     }
+    }
 
 
 
     if(isHard) {
+        if(isWorldReady[3]){
         var meteoro1 = scene.getObjectByName("meteoro1");
         var meteoro2 = scene.getObjectByName("meteoro2");
         var meteoro3 = scene.getObjectByName("meteoro3");
@@ -462,7 +649,9 @@ function render() {
         if(meteoro3.position.z < -18) {meteoro3.invertir = false; meteoro3.position.x = posicionAleatoriaLargo();}
         if(meteoro4.position.z > 18)  {meteoro4.invertir = false; meteoro4.position.x = posicionAleatoriaLargo();}
         if(meteoro5.position.z < -18) {meteoro5.invertir = false; meteoro5.position.x = posicionAleatoriaLargo();}
+        }
     }
+}
 
     renderer.render(scene, camera);
 }
@@ -512,6 +701,7 @@ function itemAleatorio(){
 }
 
 function cargaEnemigos() {
+    if(isWorldReady[4]){
     if (ciclos_Timer < collisionObjects.length) {
         if(collisionObjects[ciclos_Timer].name != "item"){
             collisionObjects[ciclos_Timer].enemigo.isReady = true;
@@ -520,6 +710,7 @@ function cargaEnemigos() {
     }
     else {
         clearInterval(intervalo);
+    }
     }
 }
 
