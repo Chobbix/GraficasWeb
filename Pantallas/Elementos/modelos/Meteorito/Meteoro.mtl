@@ -1,0 +1,9 @@
+newmtl Meteoro2:lambert3SG
+illum 4
+Kd .50 .50 .50
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd rock1_diffuse2.png
+map_Ka rock1_diffuse2.png
+bump  -bm 1 rock1_displacement.png
+Ni 1.00
