@@ -1,9 +1,10 @@
 class Enemigos {
-    constructor(vida, velocidad, isReady, lado) {
+    constructor(vida, velocidad, isReady, lado, player) {
         this.vida = vida;
         this.velocidad = velocidad;
         this.isReady = isReady;
         this.lado = lado;
+        this.player = player;
     }
 
     restaurarVida(vida) {
