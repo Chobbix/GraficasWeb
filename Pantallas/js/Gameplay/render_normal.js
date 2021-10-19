@@ -375,27 +375,27 @@ function LoadFBXAnimetedNave(fbxFile, onLoadCallback){
     const loader = new FBXLoader();
     loader.load(fbxFile, (object) => {
 
-        object.rotation.y = THREE.Math.degToRad(-90);
-            const anim = new FBXLoader();
-              anim.load('../Elementos/modelos/Star_Fighter/Textura/StarFighter2Anim.fbx', (anim) => {
-                object.mixer = new THREE.AnimationMixer(object);
-                mixers.push(object.mixer);
-                action = object.mixer.clipAction(anim.animations[0]);
-                action2 = object.mixer.clipAction(anim.animations[1]);
-                action.play();
-                action2.play();
+    object.rotation.y = THREE.Math.degToRad(-90);
+        const anim = new FBXLoader();
+            anim.load('../Elementos/modelos/Star_Fighter/Textura/StarFighter2Anim.fbx', (anim) => {
+            object.mixer = new THREE.AnimationMixer(object);
+            mixers.push(object.mixer);
+            action = object.mixer.clipAction(anim.animations[0]);
+            action2 = object.mixer.clipAction(anim.animations[1]);
+            action.play();
+            action2.play();
 
-                object.traverse( function ( child ) {
-                    if ( child.isMesh ) {
-                       child.castShadow = true;
-                        child.receiveShadow = true;
-                    }
-               } );
+            object.traverse( function ( child ) {
+                if ( child.isMesh ) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            } );
 
-                onLoadCallback(object);
-              });
-        
-    });
+            onLoadCallback(object);
+            });
+    
+});
 }
 
 function LoadFBX(fbxFile, onLoadCallback) {
@@ -403,10 +403,10 @@ function LoadFBX(fbxFile, onLoadCallback) {
     const loader = new FBXLoader();
     loader.load(fbxFile, (fbx) => {
         fbx.traverse( function ( child ) {
-             if ( child.isMesh ) {
+                if ( child.isMesh ) {
                 child.castShadow = true;
-                 child.receiveShadow = true;
-             }
+                    child.receiveShadow = true;
+                }
         } );
 
         onLoadCallback(fbx);
@@ -447,6 +447,7 @@ function render() {
     var enemigo10 = scene.getObjectByName("enemi10");
 
     var item = scene.getObjectByName("item");
+    item.object;
 
     if (keys["A"] && nave.position.x > -25) left_rigth = -nave.player.velocidad;
     else if (keys["D"] && nave.position.x < 25) left_rigth = nave.player.velocidad;
@@ -489,10 +490,10 @@ function render() {
         var collision = rayCaster2.intersectObjects(collisionObjects, true);
         if (collision.length > 0 && collision[0].distance < 1) {
             var obj = collision[0].object;
-            obj.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
+            obj.parent.parent.parent.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
 
             if (obj.name != "item") {
-                obj.enemigo.vida = 50;
+                obj.parent.parent.parent.enemigo.vida = 50;
                 nave.player.vida -= 20;
             }
             else {
@@ -522,13 +523,12 @@ function render() {
             console.log(collision[0].distance);
             var obj = collision[0].object;
 
-            obj.enemigo.recibirDaño(nave.player.hacerDaño());
+            obj.parent.parent.parent.enemigo.recibirDaño(nave.player.hacerDaño());
             obj.material = material3;
-            console.log(obj.enemigo.vida);            
 
-            if (obj.enemigo.vida <= 0){
-                obj.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
-                obj.enemigo.vida = 50;
+            if (obj.parent.parent.parent.enemigo.vida <= 0){
+                obj.parent.parent.parent.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
+                obj.parent.parent.parent.enemigo.vida = 50;
                 puntuacion ++;
             }
         }

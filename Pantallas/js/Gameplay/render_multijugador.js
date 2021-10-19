@@ -369,12 +369,12 @@ function LoadFBX(fbxFile, onLoadCallback) {
 		
     const loader = new FBXLoader();
     loader.load(fbxFile, (fbx) => {
-        fbx.traverse( function ( child ) {
-             if ( child.isMesh ) {
-                child.castShadow = true;
-                 child.receiveShadow = true;
-             }
-        } );
+    fbx.traverse( function ( child ) {
+            if ( child.isMesh ) {
+            child.castShadow = true;
+                child.receiveShadow = true;
+            }
+    } );
 
         onLoadCallback(fbx);
     });
@@ -488,10 +488,10 @@ function render() {
         var collision = rayCaster2.intersectObjects(collisionObjects, true);
         if (collision.length > 0 && collision[0].distance < 1) {
             var obj = collision[0].object;
-            obj.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
+            obj.parent.parent.parent.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
 
             if (obj.name != "item") {
-                obj.enemigo.vida = 50;
+                obj.parent.parent.parent.enemigo.vida = 50;
                 nave.player.vida -= 20;
             }
             else {
@@ -521,14 +521,14 @@ function render() {
             console.log(collision[0].distance);
             var obj = collision[0].object;
 
-            obj.enemigo.recibirDaño(nave.player.hacerDaño());
-            obj.enemigo.player = 2;
+            obj.parent.parent.parent.enemigo.recibirDaño(nave.player.hacerDaño());
+            obj.parent.parent.parent.enemigo.player = 2;
             obj.material = material3;
-            console.log(obj.enemigo.vida);            
+            console.log(obj.parent.parent.parent.enemigo.vida);            
 
-            if (obj.enemigo.vida <= 0){
-                obj.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
-                obj.enemigo.vida = 50;
+            if (obj.parent.parent.parent.enemigo.vida <= 0){
+                obj.parent.parent.parent.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
+                obj.parent.parent.parent.enemigo.vida = 50;
                 puntuacion ++;
             }
         }
@@ -549,10 +549,10 @@ function render() {
         var collision = rayCaster3.intersectObjects(collisionObjects, true);
         if (collision.length > 0 && collision[0].distance < 1) {
             var obj = collision[0].object;
-            obj.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
+            obj.parent.parent.parent.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
 
             if (obj.name != "item") {
-                obj.enemigo.vida = 50;
+                obj.parent.parent.parent.enemigo.vida = 50;
                 nave2.player.vida -= 20;
             }
             else {
@@ -582,14 +582,14 @@ function render() {
             console.log(collision[0].distance);
             var obj = collision[0].object;
 
-            obj.enemigo.recibirDaño(nave2.player.hacerDaño());
-            obj.enemigo.player = 1;
+            obj.parent.parent.parent.enemigo.recibirDaño(nave2.player.hacerDaño());
+            obj.parent.parent.parent.enemigo.player = 1;
             obj.material = material3;
-            console.log(obj.enemigo.vida);            
+            console.log(obj.parent.parent.parent.enemigo.vida);            
 
-            if (obj.enemigo.vida <= 0){
-                obj.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
-                obj.enemigo.vida = 50;
+            if (obj.parent.parent.parent.enemigo.vida <= 0){
+                obj.parent.parent.parent.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
+                obj.parent.parent.parent.enemigo.vida = 50;
                 puntuacion ++;
             }
         }
