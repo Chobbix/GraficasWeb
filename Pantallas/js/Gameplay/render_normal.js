@@ -594,7 +594,7 @@ function render() {
 
 
 function setupScene() {		
-    var visibleSize = { width: window.innerWidth, height: 720};
+    var visibleSize = { width: window.innerWidth, height: window.innerHeight};
     clock = new THREE.Clock();		
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, visibleSize.width / visibleSize.height, 0.1, 100);
@@ -605,8 +605,8 @@ function setupScene() {
 
     camera.rotation.x = THREE.Math.degToRad(270);
 
-    renderer = new THREE.WebGLRenderer( {precision: "mediump" } );
-    renderer.setClearColor(new THREE.Color(0, 0, 0));
+    renderer = new THREE.WebGLRenderer( {precision: "mediump", alpha: true } );
+    renderer.setClearColor(new THREE.Color(0, 0, 0),0);
     renderer.setPixelRatio(visibleSize.width / visibleSize.height);
     renderer.setSize(visibleSize.width, visibleSize.height);
 
@@ -617,9 +617,9 @@ function setupScene() {
     directionalLight.position.set(0, 0, 1);
     scene.add(directionalLight);
 
-    var grid = new THREE.GridHelper(50, 10, 0xffffff, 0xffffff);
+    /*var grid = new THREE.GridHelper(50, 10, 0xffffff, 0xffffff);
     grid.position.y = -1;
-    scene.add(grid);
+    scene.add(grid);*/
 
     $("#gameplay").append(renderer.domElement);
 }
