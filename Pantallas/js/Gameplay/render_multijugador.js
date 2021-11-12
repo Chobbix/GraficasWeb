@@ -669,8 +669,8 @@ function setupScene() {
 
     camera.rotation.x = THREE.Math.degToRad(270);
 
-    renderer = new THREE.WebGLRenderer( {precision: "mediump" } );
-    renderer.setClearColor(new THREE.Color(0, 0, 0));
+    renderer = new THREE.WebGLRenderer( {precision: "mediump" ,alpha: true } );
+    renderer.setClearColor(new THREE.Color(0, 0, 0),0);
     renderer.setPixelRatio(visibleSize.width / visibleSize.height);
     renderer.setSize(visibleSize.width, visibleSize.height);
 
@@ -680,11 +680,11 @@ function setupScene() {
     var directionalLight = new THREE.DirectionalLight(new THREE.Color(1, 1, 0), 0.4);
     directionalLight.position.set(0, 0, 1);
     scene.add(directionalLight);
-
+/*
     var grid = new THREE.GridHelper(50, 10, 0xffffff, 0xffffff);
     grid.position.y = -1;
     scene.add(grid);
-
+*/
     $("#gameplay").append(renderer.domElement);
 }
 

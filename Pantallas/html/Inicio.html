@@ -16,8 +16,27 @@
     <title>Menu Inicio</title>
 
     
+    <script type="text/javascript">
+    
+        $(document).ready(function(){
+            
+            var dificultad= localStorage.getItem("Dificultad");
+            var nombre= localStorage.getItem("Nombre");
+            var escenario= localStorage.getItem("Escenario");
+        
+        });
+    </script>
+
 </head>
+
 <body>
+
+    <iframe src="/Pantallas/Elementos/Música ambiental _8 Ambiente espacial (No copyright)(MP3_128K).mp3" type="audio/mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+    <audio autoplay loop id="mainAudio">
+        <source src="/Pantallas/Elementos/Música ambiental _8 Ambiente espacial (No copyright)(MP3_128K).mp3" type="audio/mp3"/>
+        <p>If you are reading this, it is because your browser does not support the audio element.     </p>
+    </audio>
+
 <div class="switch-container">
 <input type="checkbox" id="switch">
 <label for="switch" class="lbl"></label> 
@@ -29,15 +48,15 @@
     <form>
        <!-- <div class="col-md-6 animated infinite jello"> -->
        <div class="animated infinite bounce">
-        <input type="button" value="START">
+        <input type="button" value="START" onclick="window.location.href='../html/Pantalla_Juego.html';">
         <br>
-        <input type="button" value="Niveles">
+        <input type="button" value="Niveles" onclick="window.location.href='../html/Escenarios.html';">
         <br>
-        <input type="button" value="2 jugadores">
+        <input type="button" value="2 jugadores" onclick="window.location.href='../html/Pantalla_Juego_Multijugador.html';">
         <br>
-        <input type="button" value="Puntación">
+        <input type="button" value="Puntación" onclick="window.location.href='../html/Puntuaciones.html';">
         <br>
-        <input type="button" value="Ajustes">
+        <input type="button" value="Ajustes" onclick="window.location.href='../html/Configuraciones.html';">
     </div>
     </form> 
 </div>
@@ -86,7 +105,11 @@
         </form> -->
     <!-- </main> -->
 
-
-
+  <!-- 
+    <audio controls autoplay loop>
+        
+        <source src="/Pantallas/Elementos/Música ambiental _8 Ambiente espacial (No copyright)(MP3_128K).mp3" type="audio/mpeg">
+    </audio>
+-->
 </body>
 </html>

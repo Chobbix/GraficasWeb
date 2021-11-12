@@ -16,15 +16,36 @@
 
 
     <title>Configuraciones</title>
+
+    
+    
+    <script type="text/javascript">
+    
+        $(document).ready(function(){
+            
+            var dificultad= localStorage.getItem("Dificultad");
+            var nombre= localStorage.getItem("Nombre");
+            var escenario= localStorage.getItem("Escenario");
+        
+        });
+        </script>
+
 </head>
 <body>
 
+    <iframe src="/Pantallas/Elementos/Música ambiental _8 Ambiente espacial (No copyright)(MP3_128K).mp3" type="audio/mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+    <audio autoplay loop id="mainAudio">
+        <source src="/Pantallas/Elementos/Música ambiental _8 Ambiente espacial (No copyright)(MP3_128K).mp3" type="audio/mp3"/>
+        <p>If you are reading this, it is because your browser does not support the audio element.     </p>
+    </audio>
+
+
             <div class="botones-box">
                 <form>
-                  <button type="button" class="btnhome"><i class="fas fa-home"></i></button> 
-                  <button type="button" class="btn"><i class="fas fa-undo-alt"></i> </button>
-                  <button type="button" class="btnfix"><i class="fas fa-cogs"></i> </button>
-        
+                    <button type="button" onclick="window.location.href='../html/Inicio.html';" class="btnhome"><i class="fas fa-home"></i></button> 
+                    <button type="button" onclick="window.location.href='../html/Inicio.html';" class="btn"><i class="fas fa-undo-alt"></i> </button>
+                    <button type="button" onclick="window.location.href='../html/Configuraciones.html';" class="btnfix"><i class="fas fa-cogs"></i> </button>
+          
                   
                 </form> 
             </div>
@@ -59,9 +80,5 @@
     </div>
     </form> 
 </div>
-
-
-
-            
 </body>
 </html>
