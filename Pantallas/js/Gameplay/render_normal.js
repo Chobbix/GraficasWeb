@@ -310,6 +310,8 @@ function render() {
     var enemigo9 = scene.getObjectByName("enemi9");
     var enemigo10 = scene.getObjectByName("enemi10");
 
+    isFinished(nave);
+
     var item = scene.getObjectByName("item");
     item.object;
 
@@ -523,4 +525,9 @@ function getParameterByName(name) {
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
     results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+function isFinished(nave) {
+    if(nave.player.vida <= 0) nave.player.isAlive = false;
+    if(nave.player.isAlive == false) $(location).attr('href','../html/Victoria.php?Puntaje=' + puntuacion);
 }
