@@ -1,0 +1,125 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: url(../Elementos/Imagen_Muerte.jpg) no-repeat center top;
+    background-size: cover;
+    height: 100vh;
+    font-family: 'Dhurjati', sans-serif;
+}
+
+.Menu-box {
+    width: 320px;
+    height: 490px;
+    background: rgb(64 8 7);
+    color: rgba(255, 255, 255, 0.932);
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    padding: 70px 30px;
+    border-radius: 30px;
+    
+}
+
+.Menu-box .Logo{
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: -150px;
+    left: calc(50% - 150px);
+}
+
+
+.Menu-box h1{
+    margin: 0;
+    text-align: center;
+    font-size: 50px;
+    font-style:italic;
+    }
+
+.Menu-box h2{
+    text-align: center;
+    font-size: 30px;
+    font-style: italic;
+    margin-top: -20px;
+}
+
+.Menu-box h3{
+    text-align: center;
+    font-size: 20px;
+    font-style: italic;
+    margin-bottom: 40px;
+    margin-top: -20px;
+}
+
+.Menu-box p{
+    font-size: 30px;
+    border-radius: 20px;
+    height: 40px;
+    text-align: center;
+    margin: -10px;
+    }  
+
+.Menu-box .btnGameplay{
+    font-family: 'Tourney';
+    font-size: 25px;
+    border-radius: 40px;
+    height: 40px;
+    border-color: rgb(254 42 62);
+    background-color: rgba(143, 29, 29, 0.603);
+    color: rgb(255, 254, 254);
+    box-shadow: 2px 10px 12px rgb(25 64 82 / 5%);
+    margin-bottom: 20px;
+    margin-top: 100px;
+    width: 100%;
+    
+    }
+
+.Menu-box .btn{
+    font-family: 'Tourney';
+    border-radius: 50px;
+    width: 80px;
+    height: 80px;
+    border-color: rgb(255 65 100);
+    background-color: rgb(30 2 1);
+    color: rgb(255, 254, 254);
+    box-shadow: 2px 10px 12px rgba(25, 64, 82, 0.05);
+    font-size: 40px;
+
+   }
+
+   
+   .Menu-box .btnhome{
+    margin-left: 50px;
+    font-family: 'Tourney';
+    border-radius: 50px;
+    width: 80px;
+    height: 80px;
+    border-color: rgb(255 65 100);
+    background-color: rgb(30 2 1);
+    color: rgb(255, 254, 254);
+    box-shadow: 2px 10px 12px rgba(25, 64, 82, 0.05);
+    font-size: 40px;
+
+   }
+
+   
+   .Menu-box .btnfix{
+    font-family: 'Tourney';
+    border-radius: 50px;
+    width: 80px;
+    height: 80px;
+    border-color: rgb(255 65 100);
+    background-color: rgb(30 2 1);
+    color: rgb(255, 254, 254);
+    box-shadow: 2px 10px 12px rgba(25, 64, 82, 0.05);
+    font-size: 40px;
+   }
+
+
+audio{
+    width:0%;
+    height:0%;
+    
+}
