@@ -18,7 +18,7 @@ var rayCaster2;
 var intervalo;
 var ciclos_Timer = 0;
 var puntuacion = 0;
-var isHard = true;
+var isHard = false;
 var collisionObjects = [];
 var collisionMeteoros = [];
 var mixers=[];
@@ -36,6 +36,10 @@ var material3 = new THREE.MeshLambertMaterial({
 });
 
 $(document).ready(function() {
+    var dif = getParameterByName('dif');
+    if(dif == 2) {
+        isHard = true;
+    }
     setupScene();
     
     var time = 5000;
@@ -655,4 +659,11 @@ function cargaItem () {
     item.tipo = itemAleatorio();
     item.position.set(posicionAleatoriaAncho(), 0, posicionAleatoriaLargo());
     console.log(item.position);
+}
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }

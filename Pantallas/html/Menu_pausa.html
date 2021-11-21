@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,47 +12,51 @@
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dhurjati&family=DotGothic16&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-    <link rel="shortcut icon" href="../Elementos/Universe_defenders.png"  type="image/x-icon">
+    <link rel="shortcut icon" href="../Elementos/Universe_defenders.png" type="image/x-icon">
 
     <title> Pausa </title>
     <script type="text/javascript">
-    
-        $(document).ready(function(){
-            
-            var dificultad= localStorage.getItem("Dificultad");
-            var nombre= localStorage.getItem("Nombre");
-            var escenario= localStorage.getItem("Escenario");
-        
+
+        $(document).ready(function () {
+
+            var dificultad = localStorage.getItem("Dificultad");
+            var nombre = localStorage.getItem("Nombre");
+            var escenario = localStorage.getItem("Escenario");
+
         });
-        </script>
-    
+    </script>
+
 </head>
+
 <body>
 
-    
-    <iframe src="../Elementos/Música ambiental _8 Ambiente espacial (No copyright)(MP3_128K).mp3" type="audio/mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+
+    <iframe src="../Elementos/Música ambiental _8 Ambiente espacial (No copyright)(MP3_128K).mp3" type="audio/mp3"
+        allow="autoplay" id="audio" style="display:none"></iframe>
     <audio autoplay loop id="mainAudio">
-        <source src="../Elementos/Música ambiental _8 Ambiente espacial (No copyright)(MP3_128K).mp3" type="audio/mp3"/>
-        <p>If you are reading this, it is because your browser does not support the audio element.     </p>
+        <source src="../Elementos/Música ambiental _8 Ambiente espacial (No copyright)(MP3_128K).mp3"
+            type="audio/mp3" />
+        <p>If you are reading this, it is because your browser does not support the audio element. </p>
     </audio>
 
-<div class="Menu-box">
-    <img class="Logo" src="../Elementos/Pausa_def.png" alt="Logo_juego">
-    <h1>P A U S A</h1>
-    <form>
-       <!-- <div class="col-md-6 animated infinite jello"> -->
-       <div class="animated infinite bounce">
-        <input type="button" value="Reaunudar" onclick="window.location.href='../html/Pantalla_Juego.html';">
-        <br>
-        <input type="button" value="Ajustes" onclick="window.location.href='../html/Configuraciones.html';">
-        <br>
-        <input type="button" value="Inicio" onclick="window.location.href='../html/Inicio.html';">
-        <br>
+    <div class="Menu-box">
+        <img class="Logo" src="../Elementos/Pausa_def.png" alt="Logo_juego">
+        <h1>P A U S A</h1>
+        <form>
+            <!-- <div class="col-md-6 animated infinite jello"> -->
+            <div class="animated infinite bounce">
+                <input type="button" value="Reaunudar" onclick="window.location.href='../html/Pantalla_Juego.html';">
+                <br>
+                <input type="button" value="Ajustes" onclick="window.location.href='../html/Configuraciones.html';">
+                <br>
+                <input type="button" value="Inicio" onclick="window.location.href='../html/Inicio.html';">
+                <br>
+            </div>
+        </form>
     </div>
-    </form> 
-</div>
 
 
 
 </body>
+
 </html>
