@@ -427,8 +427,6 @@ function render() {
         var meteoro3 = scene.getObjectByName("meteoro3");
         var meteoro4 = scene.getObjectByName("meteoro4");
         var meteoro5 = scene.getObjectByName("meteoro5");
-
-        console.log(meteoro1.position);
         
         if(!meteoro1.invertir) meteoro1.position.z += 2 * deltaTime;
         if(!meteoro2.invertir) meteoro2.position.z -= 3 * deltaTime;

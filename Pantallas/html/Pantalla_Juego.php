@@ -61,9 +61,12 @@
   <script src="../js/postprocessing.min.js"></script>
 
   <script>
-    //FONDO NEBULOSA------------------------------------------------------------------------
-    let scene, camera, cloudParticles = [],
+    var escenario = 1;
+    var scene, sceneLight, portalLight, camera, cam, renderer, clock, portalParticles = [],
+      smokeParticles = [],
+      renderer, cloudParticles = [],
       composer;
+      
 
     function init() {
       scene = new THREE.Scene();
@@ -165,150 +168,157 @@
       composer.render(0.1);
       requestAnimationFrame(render);
     }
-    init();
 
-    /*
- // VORTICE FONDO----------------------------------------------
-       var scene, sceneLight, portalLight, cam, renderer, clock ,portalParticles = [],smokeParticles = [] ;
-        function initScene(){
-            scene = new THREE.Scene();
-            sceneLight = new THREE.DirectionalLight(0xffffff,0.5);
-            sceneLight.position.set(0,0,1);
-            scene.add(sceneLight);
-            portalLight = new THREE.PointLight(0x062d89, 30, 600, 1.7);
-            portalLight.position.set(0,0,250);
-            scene.add(portalLight);
-            cam = new THREE.PerspectiveCamera(80,window.innerWidth/window.innerHeight,1,10000);
-            cam.position.z = 1000;
-            scene.add(cam);
-            renderer = new THREE.WebGLRenderer();
-            renderer.setClearColor(0x000000,1);
-            renderer.setSize(window.innerWidth , window.innerHeight);
-            document.body.appendChild(renderer.domElement);
-            particleSetup();
-        }
-        function particleSetup() {
-            let loader = new THREE.TextureLoader();
-            loader.load("smoke.png", function (texture){
-                portalGeo = new THREE.PlaneBufferGeometry(350,350);
-                portalMaterial = new THREE.MeshStandardMaterial({
-                    map:texture,
-                    transparent: true
-                });
-                smokeGeo = new THREE.PlaneBufferGeometry(1000,1000);
-                smokeMaterial = new THREE.MeshStandardMaterial({
-                    map:texture,
-                    transparent: true
-                });
-                for(let p=880;p>250;p--) {
-                    let particle = new THREE.Mesh(portalGeo,portalMaterial);
-                    particle.position.set(
-                        0.5 * p * Math.cos((4 * p * Math.PI) / 180),
-                        0.5 * p * Math.sin((4 * p * Math.PI) / 180),
-                        0.1 * p
-                    );
-                    particle.rotation.z = Math.random() *360;
-                    portalParticles.push(particle);
-                    scene.add(particle);
-                }
-                for(let p=0;p<40;p++) {
-                    let particle = new THREE.Mesh(smokeGeo,smokeMaterial);
-                    particle.position.set(
-                        Math.random() * 1000-500,
-                        Math.random() * 400-200,
-                        25
-                    );
-                    particle.rotation.z = Math.random() *360;
-                    particle.material.opacity = 0.6;
-                    portalParticles.push(particle);
-                    scene.add(particle);
-                }
-                clock = new THREE.Clock();
-                animate();
-                
-            });
-        }
-        function animate() {
-            let delta = clock.getDelta();
-            portalParticles.forEach(p => {
-                p.rotation.z -= delta *1.5;
-            });
-            smokeParticles.forEach(p => {
-                p.rotation.z -= delta *0.2;
-            });
-            if(Math.random() > 0.9) {
-                portalLight.power =350 + Math.random()*500;
-            }
-            renderer.render(scene,cam);
-            requestAnimationFrame(animate);
-        }
-        initScene();
-        
-        */
 
-    /*
-      //ESTRELLAS FONDO------------------------------------------------------------
-      let scene, camera, renderer;
-      function init() {
-        //create scene object
-        scene = new THREE.Scene();
+    function initScene() {
+      scene = new THREE.Scene();
+      sceneLight = new THREE.DirectionalLight(0xffffff, 0.5);
+      sceneLight.position.set(0, 0, 1);
+      scene.add(sceneLight);
+      portalLight = new THREE.PointLight(0x062d89, 30, 600, 1.7);
+      portalLight.position.set(0, 0, 250);
+      scene.add(portalLight);
+      camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 1, 10000);
+      camera.position.z = 1000;
+      scene.add(camera);
+      renderer = new THREE.WebGLRenderer();
+      renderer.setClearColor(0x000000, 1);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+      particleSetup();
+    }
 
-        //setup camera with facing upward
-        camera = new THREE.PerspectiveCamera(
-          60,
-          window.innerWidth / window.innerHeight,
-          1,
-          1000
-        );
-        camera.position.z = 1;
-        camera.rotation.x = Math.PI / 2;
-
-        //setup renderer
-        renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-
-        starGeo = new THREE.Geometry();
-        for (let i = 0; i < 6000; i++) {
-          let star = new THREE.Vector3(
-            Math.random() * 600 - 300,
-            Math.random() * 600 - 300,
-            Math.random() * 600 - 300
+    function particleSetup() {
+      let loader = new THREE.TextureLoader();
+      loader.load("smoke.png", function(texture) {
+        portalGeo = new THREE.PlaneBufferGeometry(350, 350);
+        portalMaterial = new THREE.MeshStandardMaterial({
+          map: texture,
+          transparent: true
+        });
+        smokeGeo = new THREE.PlaneBufferGeometry(1000, 1000);
+        smokeMaterial = new THREE.MeshStandardMaterial({
+          map: texture,
+          transparent: true
+        });
+        for (let p = 880; p > 250; p--) {
+          let particle = new THREE.Mesh(portalGeo, portalMaterial);
+          particle.position.set(
+            0.5 * p * Math.cos((4 * p * Math.PI) / 180),
+            0.5 * p * Math.sin((4 * p * Math.PI) / 180),
+            0.1 * p
           );
-          starGeo.vertices.push(star);
-          star.velocity = 0;
-          star.acceleration = 0.02;
+          particle.rotation.z = Math.random() * 360;
+          portalParticles.push(particle);
+          scene.add(particle);
         }
-
-        let sprite = new THREE.TextureLoader().load("star.png");
-        let starMaterial = new THREE.PointsMaterial({
-          color: 0xaaaaaa,
-          size: 0.7,
-          map: sprite,
-        });
-        stars = new THREE.Points(starGeo, starMaterial);
-        scene.add(stars);
+        for (let p = 0; p < 40; p++) {
+          let particle = new THREE.Mesh(smokeGeo, smokeMaterial);
+          particle.position.set(
+            Math.random() * 1000 - 500,
+            Math.random() * 400 - 200,
+            25
+          );
+          particle.rotation.z = Math.random() * 360;
+          particle.material.opacity = 0.6;
+          portalParticles.push(particle);
+          scene.add(particle);
+        }
+        clock = new THREE.Clock();
         animate();
-      }
-      //rendering loop
-      function animate() {
-        starGeo.vertices.forEach((p) => {
-          p.velocity += p.acceleration;
-          p.y -= p.velocity;
 
-          if (p.y < -200) {
-            p.y = 200;
-            p.velocity = 0;
-          }
-        });
-        starGeo.verticesNeedUpdate = true;
-        stars.rotation.y += 0.002;
-        renderer.render(scene, camera);
-        requestAnimationFrame(animate);
+      });
+    }
+
+    function animate() {
+      let delta = clock.getDelta();
+      portalParticles.forEach(p => {
+        p.rotation.z -= delta * 1.5;
+      });
+      smokeParticles.forEach(p => {
+        p.rotation.z -= delta * 0.2;
+      });
+      if (Math.random() > 0.9) {
+        portalLight.power = 350 + Math.random() * 500;
+      }
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+
+
+    function initStar() {
+      //create scene object
+      scene = new THREE.Scene();
+
+      //setup camera with facing upward
+      camera = new THREE.PerspectiveCamera(
+        60,
+        window.innerWidth / window.innerHeight,
+        1,
+        1000
+      );
+      camera.position.z = 1;
+      camera.rotation.x = Math.PI / 2;
+
+      //setup renderer
+      renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      starGeo = new THREE.Geometry();
+      for (let i = 0; i < 6000; i++) {
+        let star = new THREE.Vector3(
+          Math.random() * 600 - 300,
+          Math.random() * 600 - 300,
+          Math.random() * 600 - 300
+        );
+        starGeo.vertices.push(star);
+        star.velocity = 0;
+        star.acceleration = 0.02;
       }
 
+      let sprite = new THREE.TextureLoader().load("star.png");
+      let starMaterial = new THREE.PointsMaterial({
+        color: 0xaaaaaa,
+        size: 0.7,
+        map: sprite,
+      });
+      stars = new THREE.Points(starGeo, starMaterial);
+      scene.add(stars);
+      animateStar();
+    }
+
+    function animateStar() {
+      starGeo.vertices.forEach((p) => {
+        p.velocity += p.acceleration;
+        p.y -= p.velocity;
+
+        if (p.y < -200) {
+          p.y = 200;
+          p.velocity = 0;
+        }
+      });
+      starGeo.verticesNeedUpdate = true;
+      stars.rotation.y += 0.002;
+      renderer.render(scene, camera);
+      requestAnimationFrame(animateStar);
+    }
+
+
+    //FONDO NEBULOSA------------------------------------------------------------------------
+    if (escenario == 1) {
       init();
-    */
+    }
+
+    // VORTICE FONDO----------------------------------------------
+    if (escenario == 2) {
+      initScene();
+    }
+
+    //ESTRELLAS FONDO------------------------------------------------------------
+    if (escenario == 3) {
+      initStar();
+    }
   </script>
 </body>
 
