@@ -18,7 +18,7 @@ var rayCaster2;
 var intervalo;
 var ciclos_Timer = 0;
 var puntuacion = 0;
-var isHard = false;
+var isHard = true;
 var collisionObjects = [];
 var collisionMeteoros = [];
 var mixers=[];
@@ -256,22 +256,19 @@ $(document).ready(function() {
     collisionObjects.push(enemi9);
     collisionObjects.push(enemi10);*/
 
-    var geometryItem = new THREE.BoxGeometry(1, 1, 1);
+    /*-------------------------------------ITEM MODELO-----------------------------------------------*/ 
+    var geometryItem = new THREE.SphereGeometry(15, 32, 16);
     var materialItem = new THREE.MeshLambertMaterial({
         color: new THREE.Color(0.0, 0.0, 0.4)
     });
-
-    /*-------------------------------------ITEM MODELO-----------------------------------------------*/ 
-    LoadFBX("../Elementos/modelos/Item/pillA.fbx", (item) => {
-        //var item = new THREE.Mesh(geometryItem, materialItem);
-            item.scale.setScalar(.5); 
-            item.position.set(0, 50, 0);
-            scene.add(item);
-            item.name = "item";
-            item.tipo = 0;
-            collisionObjects.push(item);
-            isWorldReady[2] = true;
-    });
+    var item = new THREE.Mesh(geometryItem, materialItem);
+    item.position.set(0, 50, 0);
+    item.scale.setScalar(.1); 
+    scene.add(item);
+    item.name = "item";
+    item.tipo = 0;
+    collisionObjects.push(item);
+    isWorldReady[2] = true;
     /*-------------------------------------ITEM MODELO-----------------------------------------------*/ 
 
     if(isHard) {
@@ -424,7 +421,6 @@ function onKeyDown(event) {
 
 function onKeyUp(event) {
     keys[String.fromCharCode(event.keyCode)] = false;
-    KEYS[key]=false;
 }
 
 function render() {
@@ -494,13 +490,15 @@ function render() {
         var collision = rayCaster2.intersectObjects(collisionObjects, true);
         if (collision.length > 0 && collision[0].distance < 1) {
             var obj = collision[0].object;
-            obj.parent.parent.parent.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
+            
 
             if (obj.name != "item") {
+                obj.parent.parent.parent.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
                 obj.parent.parent.parent.enemigo.vida = 50;
                 nave.player.vida -= 20;
             }
             else {
+                obj.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
                 if (obj.tipo == 1){ nave.player.vida = 50; }
                 if (obj.tipo == 2){ nave.player.aumentarVelocidad(3); }
                 if (obj.tipo == 3){ nave.player.aumentarPoder(5); }
