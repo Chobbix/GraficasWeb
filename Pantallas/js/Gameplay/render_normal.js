@@ -18,13 +18,14 @@ var rayCaster2;
 var intervalo;
 var ciclos_Timer = 0;
 var puntuacion = 0;
-var isHard = false;
+var isHard = true;
 var collisionObjects = [];
 var collisionMeteoros = [];
 var mixers=[];
 var action, action2;
 var flag=false;
 var isWorldReady = [ false, false, false, false];
+var pause = false;
 
 var material2 = new THREE.MeshPhongMaterial({
     color: new THREE.Color(0.5, 0.5, 0.5),
@@ -67,20 +68,6 @@ $(document).ready(function() {
         objetoCargado.name = "cubo01";
         isWorldReady[0] = true
     });
-    /*-------------------------------------NAVE MODELO-----------------------------------------------*/ 
-    
-    /*var cubo = new THREE.Mesh(geometry, material);
-    cubo.front = new THREE.Vector3(0, 0, -1);
-    cubo.player = new Player(50, 10, 1, true);
-    cubo.rayos = [
-        new THREE.Vector3(1, 0, 0),
-        new THREE.Vector3(-1, 0, 0),
-        new THREE.Vector3(0, 0, 1),
-        new THREE.Vector3(0, 0, -1),
-    ];
-
-    scene.add(cubo);
-    cubo.name = "cubo01";*/
 
     var vel_enem = 5;
     if(isHard) vel_enem = 9;
@@ -170,108 +157,20 @@ $(document).ready(function() {
 
         isWorldReady[1] = true;
     });
-    /*-------------------------------------ENEMIGO MODELO-----------------------------------------------*/ 
 
-    /*var enemi = new THREE.Mesh(geometry, material2);
-    enemi.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-
-    var enemi1 = enemi.clone();
-    enemi1.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-
-    var enemi2 = enemi.clone();
-    enemi2.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-
-    var enemi3 = enemi.clone();
-    enemi3.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-    
-    var enemi4 = enemi.clone();
-    enemi4.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-    
-    var enemi5 = enemi.clone();
-    enemi5.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-    
-    var enemi6 = enemi.clone();
-    enemi6.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-    
-    var enemi7 = enemi.clone();
-    enemi7.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-    
-    var enemi8 = enemi.clone();
-    enemi8.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-    
-    var enemi9 = enemi.clone();
-    enemi9.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-    
-    var enemi10 = enemi.clone();
-    enemi10.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
-
-    scene.add(enemi);
-    scene.add(enemi1);
-    scene.add(enemi2);
-    scene.add(enemi3);
-    scene.add(enemi4);
-    scene.add(enemi5);
-    scene.add(enemi6);
-    scene.add(enemi7);
-    scene.add(enemi8);
-    scene.add(enemi9);
-    scene.add(enemi10);
-
-    enemi.name = "enemi";
-    enemi1.name = "enemi1";
-    enemi2.name = "enemi2";
-    enemi3.name = "enemi3";
-    enemi4.name = "enemi4";
-    enemi5.name = "enemi5";
-    enemi6.name = "enemi6";
-    enemi7.name = "enemi7";
-    enemi8.name = "enemi8";
-    enemi9.name = "enemi9";
-    enemi10.name = "enemi10";
-
-    var vel_enem = 5;
-    if(isHard) vel_enem = 9;
-
-    enemi.enemigo = new Enemigos(50, vel_enem, false, 0);
-    enemi1.enemigo = new Enemigos(50, vel_enem, false, 0);
-    enemi2.enemigo = new Enemigos(50, vel_enem, false, 0);
-    enemi3.enemigo = new Enemigos(50, vel_enem, false, 0);
-    enemi4.enemigo = new Enemigos(50, vel_enem, false, 0);
-    enemi5.enemigo = new Enemigos(50, vel_enem, false, 0);
-    enemi6.enemigo = new Enemigos(50, vel_enem, false, 1);
-    enemi7.enemigo = new Enemigos(50, vel_enem, false, 1);
-    enemi8.enemigo = new Enemigos(50, vel_enem, false, 1);
-    enemi9.enemigo = new Enemigos(50, vel_enem, false, 1);
-    enemi10.enemigo = new Enemigos(50, vel_enem, false, 1);
-
-    collisionObjects.push(enemi);
-    collisionObjects.push(enemi1);
-    collisionObjects.push(enemi2);
-    collisionObjects.push(enemi3);
-    collisionObjects.push(enemi4);
-    collisionObjects.push(enemi5);
-    collisionObjects.push(enemi6);
-    collisionObjects.push(enemi7);
-    collisionObjects.push(enemi8);
-    collisionObjects.push(enemi9);
-    collisionObjects.push(enemi10);*/
-
-    var geometryItem = new THREE.BoxGeometry(1, 1, 1);
+    /*-------------------------------------ITEM MODELO-----------------------------------------------*/ 
+    var geometryItem = new THREE.SphereGeometry(15, 32, 16);
     var materialItem = new THREE.MeshLambertMaterial({
         color: new THREE.Color(0.0, 0.0, 0.4)
     });
-
-    /*-------------------------------------ITEM MODELO-----------------------------------------------*/ 
-    LoadFBX("../Elementos/modelos/Item/pillA.fbx", (item) => {
-        //var item = new THREE.Mesh(geometryItem, materialItem);
-            item.scale.setScalar(.5); 
-            item.position.set(0, 50, 0);
-            scene.add(item);
-            item.name = "item";
-            item.tipo = 0;
-            collisionObjects.push(item);
-            isWorldReady[2] = true;
-    });
+    var item = new THREE.Mesh(geometryItem, materialItem);
+    item.position.set(0, 50, 0);
+    item.scale.setScalar(.1); 
+    scene.add(item);
+    item.name = "item";
+    item.tipo = 0;
+    collisionObjects.push(item);
+    isWorldReady[2] = true;
     /*-------------------------------------ITEM MODELO-----------------------------------------------*/ 
 
     if(isHard) {
@@ -318,50 +217,6 @@ $(document).ready(function() {
 
             isWorldReady[3] = true;
         });
-
-        /*var geometryMeteoro = new THREE.BoxGeometry(2, 2, 2);
-        var materialMeteoro = new THREE.MeshLambertMaterial({
-            color: new THREE.Color(0.7, 0.5, 0.0)
-        });
-
-        var meteoro1 = new THREE.Mesh(geometryMeteoro, materialMeteoro);
-        meteoro1.position.set(posicionAleatoriaAncho(), 0, -18);
-
-        var meteoro2 = meteoro1.clone();
-        meteoro2.position.set(posicionAleatoriaAncho(), 0, 18);
-
-        var meteoro3 = meteoro1.clone();
-        meteoro3.position.set(posicionAleatoriaAncho(), 0, -18);
-
-        var meteoro4 = meteoro1.clone();
-        meteoro4.position.set(posicionAleatoriaAncho(), 0, 18);
-
-        var meteoro5 = meteoro1.clone();
-        meteoro5.position.set(posicionAleatoriaAncho(), 0, -18);
-
-        scene.add(meteoro1);
-        scene.add(meteoro2);
-        scene.add(meteoro3);
-        scene.add(meteoro4);
-        scene.add(meteoro5);
-
-        meteoro1.name = "meteoro1";
-        meteoro2.name = "meteoro2";
-        meteoro3.name = "meteoro3";
-        meteoro4.name = "meteoro4";
-        meteoro5.name = "meteoro5";
-
-        meteoro1.invertir = false;
-        meteoro2.invertir = false;
-        meteoro3.invertir = false;
-        meteoro4.invertir = false;
-        meteoro5.invertir = false;
-
-        collisionMeteoros.push(meteoro1);
-        collisionMeteoros.push(meteoro2);
-        collisionMeteoros.push(meteoro3);
-        collisionMeteoros.push(meteoro4);
-        collisionMeteoros.push(meteoro5);*/
     }
 
     $("#gameplay").append(renderer.domElement);
@@ -424,12 +279,17 @@ function onKeyDown(event) {
 
 function onKeyUp(event) {
     keys[String.fromCharCode(event.keyCode)] = false;
-    KEYS[key]=false;
 }
 
 function render() {
+
+    if (keys["B"]) pause = true;
+    if (keys["N"]) pause = false;
+
     requestAnimationFrame(render);
-    deltaTime = clock.getDelta();
+
+    if(pause == true) { deltaTime = 0; }
+    else { deltaTime = clock.getDelta(); }
 
     var left_rigth = 0;
     var up_down = 0;
@@ -486,7 +346,7 @@ function render() {
     nave.front.applyAxisAngle(axis, rotate * deltaTime);
     nave.front.material = material2;
 
-    if(isWorldReady[1] && isWorldReady[2] && isWorldReady[3]){
+    if(isWorldReady[1] && isWorldReady[2]){
     for(var i = 0; i < nave.rayos.length; i++) {
         
         rayCaster2.set(nave.position, nave.rayos[i]);
@@ -494,13 +354,15 @@ function render() {
         var collision = rayCaster2.intersectObjects(collisionObjects, true);
         if (collision.length > 0 && collision[0].distance < 1) {
             var obj = collision[0].object;
-            obj.parent.parent.parent.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
+            
 
             if (obj.name != "item") {
+                obj.parent.parent.parent.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
                 obj.parent.parent.parent.enemigo.vida = 50;
                 nave.player.vida -= 20;
             }
             else {
+                obj.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
                 if (obj.tipo == 1){ nave.player.vida = 50; }
                 if (obj.tipo == 2){ nave.player.aumentarVelocidad(3); }
                 if (obj.tipo == 3){ nave.player.aumentarPoder(5); }
@@ -596,7 +458,6 @@ function render() {
     renderer.render(scene, camera);
 }
 
-
 function setupScene() {		
     var visibleSize = { width: window.innerWidth, height: window.innerHeight};
     clock = new THREE.Clock();		
@@ -620,10 +481,6 @@ function setupScene() {
     var directionalLight = new THREE.DirectionalLight(new THREE.Color(1, 1, 0), 0.4);
     directionalLight.position.set(0, 0, 1);
     scene.add(directionalLight);
-
-    /*var grid = new THREE.GridHelper(50, 10, 0xffffff, 0xffffff);
-    grid.position.y = -1;
-    scene.add(grid);*/
 
     $("#gameplay").append(renderer.domElement);
 }
