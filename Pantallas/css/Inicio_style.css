@@ -26,6 +26,21 @@ audio{
     left: 94%;
 }
 
+.guardarModo{
+    display: inline-block;
+    width: 65px;
+    height: 33px;
+    border-color: rgb(247, 0, 255);
+    background-color: rgba(66, 36, 172, 0.603);
+    color: rgb(255, 254, 254);
+    box-shadow: 2px 10px 12px rgba(25, 64, 82, 0.05);
+    border-radius: 100px;
+    cursor: pointer;
+    position: relative;
+    top: 20px;
+    left: 94%;
+}
+
 .lbl::after{
     content: '';
     display: block;

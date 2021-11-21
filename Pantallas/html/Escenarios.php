@@ -66,7 +66,7 @@
       <div class="row">
 
 
-        <form method= "POST" action="" >
+        <form method= "POST" action="../variables/escenario.php" >
           <div class="contenedor_recuadros">
             <ul id="autoWidth" class="cs-hidden">
               <!-- 1  ---------------------------------------- -->
@@ -74,7 +74,7 @@
                 <div class="caja_cursos">
                   <img src="../Elementos/Hiper_velocidad.jpg" class="img_curso_cuadro" alt="curso 1">
                   <div class="detalles_curso">
-                  <button type="Sumbit" name= "escenario1" id=1>ESTRELLAS</button> <!-- Boton para enviar el dato del escenario1- -->
+                  <button type="Sumbit" name= "escenario" value=1>ESTRELLAS</button> <!-- Boton para enviar el dato del escenario1- -->
                 </div>
               </li>
               
@@ -84,7 +84,7 @@
                 <div class="caja_cursos">
                   <img src="../Elementos/vortice.jpg" class="img_curso_cuadro" alt="curso 1">
                   <div class="detalles_curso">
-                  <button type="Sumbit" name= "escenario2" id=2>VORTICE</button> <!-- Boton para enviar el dato del escenario2- -->
+                  <button type="Sumbit" name= "escenario" value=2>VORTICE</button> <!-- Boton para enviar el dato del escenario2- -->
                   </div>
                 </div>
               </li>
@@ -94,7 +94,7 @@
                 <div class="caja_cursos">
                   <img src="../Elementos/nebula.jpg" class="img_curso_cuadro" alt="curso 1">
                   <div class="detalles_curso">
-                  <button type="Sumbit" name= "escenario3" id=3>NEBULOSA</button> <!-- Boton para enviar el dato del escenario3- -->
+                  <button type="Sumbit" name= "escenario" value=3>NEBULOSA</button> <!-- Boton para enviar el dato del escenario3- -->
                   </div>
                 </div>
               </li>

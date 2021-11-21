@@ -61,14 +61,14 @@
         <img class="Logo" src="../Elementos/Config.png" alt="Logo_juego">
         <h1>A J U S T E S</h1>
         <br>
-        <form method= "POST" action="">
+        <form method= "POST" action="../variables/nombre.php">
             <!-- <div class="col-md-6 animated infinite jello"> -->
             <div class="animated infinite bounce">
                 <!--<input type="button" value="Borrar partida">
                 <br>-->
 
 
-                <input type="text" class="Nickname" placeholder= "Nickname" value="">
+                <input type="text" name="Nickname" class="Nickname" placeholder= "Nickname" required>
                 <br>
 
                 <div class="switch-container">

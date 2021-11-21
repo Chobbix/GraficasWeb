@@ -1,3 +1,7 @@
+<?
+    session_start();
+    $_SESSION['Dificultad']=$dificultad;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,10 +44,14 @@
         <p>If you are reading this, it is because your browser does not support the audio element. </p>
     </audio>
 
-    <div class="switch-container">
-        <input type="checkbox" id="switch">
-        <label for="switch" class="lbl"></label>
-    </div>
+    <form method="POST" action="../variables/dificultad.php">
+        <div class="switch-container">
+            <input name="modo" type="hidden" value="0" />
+            <input name="modo" type="checkbox" id="switch" value="1" style="display: none;"/>
+            <label for="switch" class="lbl"></label>
+        </div>
+        <input class= "guardarModo" type="submit" value="Guardar">
+    </form>
 
     <div class="Menu-box">
         <img class="Logo" src="../Elementos/Universe_defenders.png" alt="Logo_juego">
