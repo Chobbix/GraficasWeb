@@ -51,16 +51,16 @@
         <form>
             <!-- <div class="col-md-6 animated infinite jello"> -->
             <div class="animated infinite bounce">
-                <input type="button" value="START" onclick="window.location.href='../html/Pantalla_Juego.html';">
+                <input type="button" value="START" onclick="window.location.href='../html/Pantalla_Juego.php';">
                 <br>
-                <input type="button" value="Niveles" onclick="window.location.href='../html/Escenarios.html';">
+                <input type="button" value="Niveles" onclick="window.location.href='../html/Escenarios.php';">
                 <br>
                 <input type="button" value="2 jugadores"
-                    onclick="window.location.href='../html/Pantalla_Juego_Multijugador.html';">
+                    onclick="window.location.href='../html/Pantalla_Juego_Multijugador.php';">
                 <br>
-                <input type="button" value="Puntación" onclick="window.location.href='../html/Puntuaciones.html';">
+                <input type="button" value="Puntación" onclick="window.location.href='../html/Puntuaciones.php';">
                 <br>
-                <input type="button" value="Ajustes" onclick="window.location.href='../html/Configuraciones.html';">
+                <input type="button" value="Ajustes" onclick="window.location.href='../html/Configuraciones.php';">
             </div>
         </form>
     </div>

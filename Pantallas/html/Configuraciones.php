@@ -46,11 +46,11 @@
 
     <div class="botones-box">
         <form>
-            <button type="button" onclick="window.location.href='../html/Inicio.html';" class="btnhome"><i
+            <button type="button" onclick="window.location.href='../html/Inicio.php';" class="btnhome"><i
                     class="fas fa-home"></i></button>
-            <button type="button" onclick="window.location.href='../html/Inicio.html';" class="btn"><i
+            <button type="button" onclick="window.location.href='../html/Inicio.php';" class="btn"><i
                     class="fas fa-undo-alt"></i> </button>
-            <button type="button" onclick="window.location.href='../html/Configuraciones.html';" class="btnfix"><i
+            <button type="button" onclick="window.location.href='../html/Configuraciones.php';" class="btnfix"><i
                     class="fas fa-cogs"></i> </button>
 
 
@@ -61,14 +61,14 @@
         <img class="Logo" src="../Elementos/Config.png" alt="Logo_juego">
         <h1>A J U S T E S</h1>
         <br>
-        <form>
+        <form method= "POST" action="">
             <!-- <div class="col-md-6 animated infinite jello"> -->
             <div class="animated infinite bounce">
-                <input type="button" value="Borrar partida">
-                <br>
+                <!--<input type="button" value="Borrar partida">
+                <br>-->
 
 
-                <input type="text" class="Nickname" value="Nickname">
+                <input type="text" class="Nickname" placeholder= "Nickname" value="">
                 <br>
 
                 <div class="switch-container">
@@ -81,8 +81,8 @@
 
 
 
-
-                <button type="button" class="btnguardar"><i class="far fa-save"></i></button>
+                <label id="iconGuardar" for="btnGuardar"><i class="far fa-save"></i></label>
+                <input type="Submit" id= "btnGuardar" class="btnguardar" style="display: none;">
 
             </div>
         </form>

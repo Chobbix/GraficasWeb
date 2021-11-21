@@ -65,11 +65,15 @@ align-items: center;
 width:  300px;
 }
 
-.detalles_curso h2{
+.detalles_curso button{
     font-weight: bold;
     color: white;
     text-align: center;
-    margin-top: 20px;
+    margin-bottom: 10px;
+    background: transparent;
+    border: none;
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 25px;
 }
 
 

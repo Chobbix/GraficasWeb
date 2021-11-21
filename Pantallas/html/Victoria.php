@@ -56,20 +56,20 @@
         <h1>FELICIDADES</h1>
         <p>Defensor del universo</p>
         <p>tu puntaje es</p>
-        <form style="margin-top: 30px">
-            <input type="number" class="Score" value="42" disabled />
+        <form method= "GET" action="" style="margin-top: 30px">
+            <input type="number" class="Score" value="" disabled />
 
             <!-- <div class="col-md-6 animated infinite jello"> -->
             <div class="animated infinite bounce">
                 <button class="btnShare" onclick="shareFB();">Compartir</button>
             </div>
-            <button type="button" onclick="window.location.href='../html/Inicio.html';" class="btnhome">
+            <button type="button" onclick="window.location.href='../html/Inicio.php';" class="btnhome">
                 <i class="fas fa-home"></i>
             </button>
-            <button type="button" onclick="window.location.href='../html/Inicio.html';" class="btn">
+            <button type="button" onclick="window.location.href='../html/Inicio.php';" class="btn">
                 <i class="fas fa-undo-alt"></i>
             </button>
-            <button type="button" onclick="window.location.href='../html/Configuraciones.html';" class="btnfix">
+            <button type="button" onclick="window.location.href='../html/Configuraciones.php';" class="btnfix">
                 <i class="fas fa-cogs"></i>
             </button>
         </form>

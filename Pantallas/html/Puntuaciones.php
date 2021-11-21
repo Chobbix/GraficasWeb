@@ -37,13 +37,13 @@
 
     <div class="Menu-box">
         <img class="Logo" src="../Elementos/score.png" alt="Logo_juego" />
-        <form>
+        <form method= "GET" action="">
             <p>
                 <i class="fas fa-user-astronaut"></i>1. KONAN BIG
                 .................................1'000'000pts
             </p>
             <br />
-            <p>
+            <!--<p>
                 <i class="fas fa-user-astronaut"></i>2. EMMA HUEVO
                 ...................................800'000pts
             </p>
@@ -62,14 +62,14 @@
                 <i class="fas fa-user-astronaut"></i>5. HECTOR BENAVIDES
                 ..............................1'000pts
             </p>
-            <br />
-            <button type="button" onclick="window.location.href='../html/Inicio.html';" class="btnhome">
+            <br />-->
+            <button type="button" onclick="window.location.href='../html/Inicio.php';" class="btnhome">
                 <i class="fas fa-home"></i>
             </button>
-            <button type="button" onclick="window.location.href='../html/Inicio.html';" class="btn">
+            <button type="button" onclick="window.location.href='../html/Inicio.php';" class="btn">
                 <i class="fas fa-undo-alt"></i>
             </button>
-            <button type="button" onclick="window.location.href='../html/Configuraciones.html';" class="btnfix">
+            <button type="button" onclick="window.location.href='../html/Configuraciones.php';" class="btnfix">
                 <i class="fas fa-cogs"></i>
             </button>
 

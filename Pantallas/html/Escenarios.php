@@ -47,11 +47,11 @@
     <div class="container-fluid">
       <div class="botones-box">
         <form>
-          <button type="button" onclick="window.location.href='../html/Inicio.html';" class="btnhome"><i
+          <button type="button" onclick="window.location.href='../html/Inicio.php';" class="btnhome"><i
               class="fas fa-home"></i></button>
-          <button type="button" onclick="window.location.href='../html/Inicio.html';" class="btn"><i
+          <button type="button" onclick="window.location.href='../html/Inicio.php';" class="btn"><i
               class="fas fa-undo-alt"></i> </button>
-          <button type="button" onclick="window.location.href='../html/Configuraciones.html';" class="btnfix"><i
+          <button type="button" onclick="window.location.href='../html/Configuraciones.php';" class="btnfix"><i
               class="fas fa-cogs"></i> </button>
 
 
@@ -66,29 +66,25 @@
       <div class="row">
 
 
-        <form>
+        <form method= "POST" action="" >
           <div class="contenedor_recuadros">
             <ul id="autoWidth" class="cs-hidden">
               <!-- 1  ---------------------------------------- -->
               <li class="item-a">
                 <div class="caja_cursos">
                   <img src="../Elementos/Hiper_velocidad.jpg" class="img_curso_cuadro" alt="curso 1">
-                  <div class="detalles_curso" name="escenario1" id="">
-                    <a href="#">
-                      <h2>ESTRELLAS</h2>
-                    </a>
-                  </div>
+                  <div class="detalles_curso">
+                  <button type="Sumbit" name= "escenario1" id=1>ESTRELLAS</button> <!-- Boton para enviar el dato del escenario1- -->
                 </div>
               </li>
+              
 
               <!-- 2  ---------------------------------------- -->
               <li class="item-a">
                 <div class="caja_cursos">
                   <img src="../Elementos/vortice.jpg" class="img_curso_cuadro" alt="curso 1">
-                  <div class="detalles_curso" name="escenario2">
-                    <a href="#">
-                      <h2>VORTICE</h2>
-                    </a>
+                  <div class="detalles_curso">
+                  <button type="Sumbit" name= "escenario2" id=2>VORTICE</button> <!-- Boton para enviar el dato del escenario2- -->
                   </div>
                 </div>
               </li>
@@ -97,10 +93,8 @@
               <li class="item-a">
                 <div class="caja_cursos">
                   <img src="../Elementos/nebula.jpg" class="img_curso_cuadro" alt="curso 1">
-                  <div class="detalles_curso" name="escenario3" id="">
-                    <a href="#">
-                      <h2>NEBULOSA</h2>
-                    </a>
+                  <div class="detalles_curso">
+                  <button type="Sumbit" name= "escenario3" id=3>NEBULOSA</button> <!-- Boton para enviar el dato del escenario3- -->
                   </div>
                 </div>
               </li>
