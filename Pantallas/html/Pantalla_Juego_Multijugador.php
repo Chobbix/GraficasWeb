@@ -66,7 +66,16 @@
   <script src="../js/postprocessing.min.js"></script>
 
   <script>
-    var escenario = 3;
+    <?php
+      session_start();
+      if($_SESSION['Escenario']==1){?>
+        var escenario = 1;
+    <?php  }else if($_SESSION['Escenario']==2){?>
+        var escenario = 2;
+    <?php  }else if($_SESSION['Escenario']==3){?>
+        var escenario = 3;
+    <?php  }
+    ?>
     var scene, sceneLight, portalLight, camera, cam, renderer, clock, portalParticles = [],
       smokeParticles = [],
       renderer, cloudParticles = [],
@@ -311,7 +320,7 @@
 
 
     //FONDO NEBULOSA------------------------------------------------------------------------
-    if (escenario == 1) {
+    if (escenario == 3) {
       init();
     }
 
@@ -321,7 +330,7 @@
     }
 
     //ESTRELLAS FONDO------------------------------------------------------------
-    if (escenario == 3) {
+    if (escenario == 1) {
       initStar();
     }
   </script>

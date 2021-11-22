@@ -1,6 +1,6 @@
 window.fbAsyncInit = function() {
     FB.init({
-      appId      : '660228742095522',
+      appId      : '290240696346453',
       xfbml      : true,
       version    : 'v2.9'
     });
@@ -22,7 +22,7 @@ window.fbAsyncInit = function() {
 
         method: 'feed',
         hashtag: "#UniverseDefendersGame",
-        quote: "He defendido al universo con un total de: "+ score +" puntos ¿crees que puedes superarme? Entra a https://google.com",
+        quote: "He defendido al universo con un total de: "+ score +" puntos ¿crees que puedes superarme? Entra a https://pruebabasededatosporfajala.000webhostapp.com/",
         picture: 'https://i.postimg.cc/qMtYwrvW/Banner.png',
         redirect_uri: 'https://developers.facebook.com/docs/dialogs/'
         //link: 'https://google.com', //Link de nuestra pagina, o pones un link o pones una imagen, no hay dos
