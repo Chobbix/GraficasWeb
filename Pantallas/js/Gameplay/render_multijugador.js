@@ -253,7 +253,7 @@ $(document).ready(function() {
         color: new THREE.Color(0.0, 0.0, 0.4)
     });
 
-     LoadFBX("../Elementos/modelos/Item/pillA.fbx", (item) => {
+    LoadFBX("../Elementos/modelos/Item/pillA.fbx", (item) => {
         //var item = new THREE.Mesh(geometryItem, materialItem);
             item.scale.setScalar(.5); 
             item.position.set(0, 50, 0);

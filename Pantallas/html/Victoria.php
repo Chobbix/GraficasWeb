@@ -1,3 +1,18 @@
+<?php
+//    require("../../Base_de_Datos/conexion.php");
+//    
+//    $conex= ConectarDB();
+//
+//    if ($conex){
+//        echo "Conexion exitosa <br><br>";
+//    }
+//    else {
+//        echo "valiste Pito";
+//    }
+//
+//    mysqli_query($conex, "INSERT INTO puntuaciones txt_Nombre, puntuacion VALUES('Juan', " + $_GET['Puntaje'] +")");
+//    mysqli_close($conex);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,7 +72,7 @@
         <p>Defensor del universo</p>
         <p>tu puntaje es</p>
         <form method= "GET" action="" style="margin-top: 30px">
-            <input type="number" class="Score" value="" disabled />
+            <input type="number" class="Score" value="<?php echo $_GET['Puntaje']; ?>" disabled />
 
             <!-- <div class="col-md-6 animated infinite jello"> -->
             <div class="animated infinite bounce">

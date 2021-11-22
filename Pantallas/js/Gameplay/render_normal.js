@@ -26,6 +26,7 @@ var action, action2;
 var flag=false;
 var isWorldReady = [ false, false, false, false];
 var pause = false;
+var oneDataBase = true;
 
 var material2 = new THREE.MeshPhongMaterial({
     color: new THREE.Color(0.5, 0.5, 0.5),
@@ -528,6 +529,9 @@ function getParameterByName(name) {
 }
 
 function isFinished(nave) {
-    if(nave.player.vida <= 0) nave.player.isAlive = false;
-    if(nave.player.isAlive == false) $(location).attr('href','../html/Victoria.php?Puntaje=' + puntuacion);
+    if(oneDataBase == true){
+        if(nave.player.vida <= 0) nave.player.isAlive = false;
+        if(nave.player.isAlive == false) $(location).attr('href','../html/Victoria.php?Puntaje=' + puntuacion);
+        oneDataBase = false;
+    }
 }

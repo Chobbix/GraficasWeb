@@ -1,3 +1,8 @@
+<?php
+
+header("../Pantallas/html/Inicio.php")
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
