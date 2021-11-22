@@ -109,13 +109,6 @@ $(document).ready(function() {
             action3.play();
             action4.play();
 
-            /*nave2.traverse( function ( child ) {
-                if ( child.isMesh ) {
-                    child.castShadow = true;
-                    child.receiveShadow = true;
-                }
-            } );*/
-
             nave2.front = new THREE.Vector3(0, 0, -1);
             nave2.player = new Player(50, 10, 1, true);
             nave2.rayos = [
@@ -133,36 +126,10 @@ $(document).ready(function() {
         });
         
     });
-    
-    /*var cubo = new THREE.Mesh(geometry, material);
-    cubo.front = new THREE.Vector3(0, 0, -1);
-    cubo.player = new Player(50, 10, 1, true);
-    cubo.rayos = [
-        new THREE.Vector3(1, 0, 0),
-        new THREE.Vector3(-1, 0, 0),
-        new THREE.Vector3(0, 0, 1),
-        new THREE.Vector3(0, 0, -1),
-    ];
-
-
-    var cubo2 = new THREE.Mesh(geometry, material);
-    cubo2.front = new THREE.Vector3(0, 0, -1);
-    cubo2.player = new Player(50, 10, 1, true);
-    cubo2.rayos = [
-        new THREE.Vector3(1, 0, 0),
-        new THREE.Vector3(-1, 0, 0),
-        new THREE.Vector3(0, 0, 1),
-        new THREE.Vector3(0, 0, -1),
-    ];
-
-
-    cubo.position.set(-15, 0, 0);
-    cubo2.position.set(15, 0, 0);*/
 
 
     LoadFBX('../Elementos/modelos/UFO/UFO_Enemigo1i2.fbx', (enemi) => {
         enemi.scale.setScalar(1); 
-        //var enemi = new THREE.Mesh(geometry, material2);
         enemi.position.set(posicionAleatoriaAncho(), 25, posicionAleatoriaLargo());
 
         var enemi1 = enemi.clone();
@@ -308,49 +275,6 @@ $(document).ready(function() {
 
             isWorldReady[3] = true;
         });
-        /*var geometryMeteoro = new THREE.BoxGeometry(2, 2, 2);
-        var materialMeteoro = new THREE.MeshLambertMaterial({
-            color: new THREE.Color(0.7, 0.5, 0.0)
-        });
-
-        var meteoro1 = new THREE.Mesh(geometryMeteoro, materialMeteoro);
-        meteoro1.position.set(posicionAleatoriaAncho(), 0, -18);
-
-        var meteoro2 = meteoro1.clone();
-        meteoro2.position.set(posicionAleatoriaAncho(), 0, 18);
-
-        var meteoro3 = meteoro1.clone();
-        meteoro3.position.set(posicionAleatoriaAncho(), 0, -18);
-
-        var meteoro4 = meteoro1.clone();
-        meteoro4.position.set(posicionAleatoriaAncho(), 0, 18);
-
-        var meteoro5 = meteoro1.clone();
-        meteoro5.position.set(posicionAleatoriaAncho(), 0, -18);
-
-        scene.add(meteoro1);
-        scene.add(meteoro2);
-        scene.add(meteoro3);
-        scene.add(meteoro4);
-        scene.add(meteoro5);
-
-        meteoro1.name = "meteoro1";
-        meteoro2.name = "meteoro2";
-        meteoro3.name = "meteoro3";
-        meteoro4.name = "meteoro4";
-        meteoro5.name = "meteoro5";
-
-        meteoro1.invertir = false;
-        meteoro2.invertir = false;
-        meteoro3.invertir = false;
-        meteoro4.invertir = false;
-        meteoro5.invertir = false;
-
-        collisionMeteoros.push(meteoro1);
-        collisionMeteoros.push(meteoro2);
-        collisionMeteoros.push(meteoro3);
-        collisionMeteoros.push(meteoro4);
-        collisionMeteoros.push(meteoro5);*/
     }
 
     $("#gameplay").append(renderer.domElement);
@@ -405,6 +329,9 @@ function render() {
     if (isWorldReady[0] & isWorldReady[1]){
     var nave = scene.getObjectByName("cubo01");
     var nave2 = scene.getObjectByName("cubo02");
+
+    isFinishedP1(nave);
+    isFinishedP2(nave2);
 
     $("#vid1").val(nave.player.vida);
     $("#vid2").val(nave2.player.vida);
@@ -657,7 +584,6 @@ function render() {
     renderer.render(scene, camera);
 }
 
-
 function setupScene() {		
     var visibleSize = { width: window.innerWidth, height: 720};
     clock = new THREE.Clock();		
@@ -720,4 +646,14 @@ function cargaItem () {
     item.tipo = itemAleatorio();
     item.position.set(posicionAleatoriaAncho(), 0, posicionAleatoriaLargo());
     console.log(item.position);
+}
+
+function isFinishedP1(nave) {
+    if(nave.player.vida <= 0) nave.player.isAlive = false;
+    if(nave.player.isAlive == false) $(location).attr('href','../html/Victoria.php?Jugador=1');
+}
+
+function isFinishedP2(nave) {
+    if(nave.player.vida <= 0) nave.player.isAlive = false;
+    if(nave.player.isAlive == false) $(location).attr('href','../html/Victoria.php?Jugador=2');
 }

@@ -1,17 +1,20 @@
 <?php
-//    require("../../Base_de_Datos/conexion.php");
-//    
-//    $conex= ConectarDB();
-//
-//    if ($conex){
-//        echo "Conexion exitosa <br><br>";
-//    }
-//    else {
-//        echo "valiste Pito";
-//    }
-//
-//    mysqli_query($conex, "INSERT INTO puntuaciones txt_Nombre, puntuacion VALUES('Juan', " + $_GET['Puntaje'] +")");
-//    mysqli_close($conex);
+
+$descripcion;
+$puntaje;
+$url;
+
+if (!isset($_GET['Jugador'])) {
+    $descripcion = "Defensor del universo";
+    $puntaje = "tu puntaje es";
+    $url = "../variables/db_AgregarPuntuacion.php?Puntaje=".$_GET['Puntaje']."&nombre=";
+    
+} else {
+    $descripcion = "Ganador: Jugador ".$_GET['Jugador'];
+    $puntaje = "";
+    $url = "../html/Inicio.php";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,8 +72,8 @@
     <div class="Menu-box">
         <img class="Logo" src="../Elementos/Universe_defenders.png" alt="Logo_juego" />
         <h1>FELICIDADES</h1>
-        <p>Defensor del universo</p>
-        <p>tu puntaje es</p>
+        <p><?php echo $descripcion ?></p>
+        <p><?php echo $puntaje ?></p>
         <form method= "GET" action="" style="margin-top: 30px">
             <input type="number" class="Score" value="<?php echo $_GET['Puntaje']; ?>" disabled />
 
@@ -78,15 +81,17 @@
             <div class="animated infinite bounce">
                 <button class="btnShare" onclick="shareFB();">Compartir</button>
             </div>
-            <button type="button" onclick="window.location.href='../html/Inicio.php';" class="btnhome">
+            <button type="button" onclick="window.location.href='<?php echo $url ?>';" class="btnhome">
                 <i class="fas fa-home"></i>
             </button>
+            <!--
             <button type="button" onclick="window.location.href='../html/Inicio.php';" class="btn">
                 <i class="fas fa-undo-alt"></i>
             </button>
             <button type="button" onclick="window.location.href='../html/Configuraciones.php';" class="btnfix">
                 <i class="fas fa-cogs"></i>
             </button>
+            -->
         </form>
     </div>
 
