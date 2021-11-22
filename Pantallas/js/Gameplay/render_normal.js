@@ -18,7 +18,7 @@ var rayCaster2;
 var intervalo;
 var ciclos_Timer = 0;
 var puntuacion = 0;
-var isHard = true;
+var isHard = false;
 var collisionObjects = [];
 var collisionMeteoros = [];
 var mixers=[];
@@ -38,8 +38,9 @@ var material3 = new THREE.MeshLambertMaterial({
 });
 
 $(document).ready(function() {
+    $(".pause").hide();
     var dif = getParameterByName('dif');
-    if(dif == 2) {
+    if(dif == 1) {
         isHard = true;
     }
     setupScene();
@@ -286,13 +287,13 @@ function onKeyUp(event) {
 
 function render() {
 
-    if (keys["B"]) pause = true;
+    if (keys["B"]) { pause = true; }
     if (keys["N"]) pause = false;
 
     requestAnimationFrame(render);
 
-    if(pause == true) { deltaTime = 0; }
-    else { deltaTime = clock.getDelta(); }
+    if(pause == true) { deltaTime = 0; $(".pause").show();}
+    else { deltaTime = clock.getDelta(); $(".pause").hide();}
 
     var left_rigth = 0;
     var up_down = 0;
@@ -534,7 +535,7 @@ function getParameterByName(name) {
 
 function isFinished(nave) {
     if(oneDataBase == true){
-        if(nave.player.vida <= 0) nave.player.isAlive = false;
+        if(nave.player.vida <= 0) {nave.player.isAlive = false; deltaTime = 0; nave.player.vida = 0;}
         if(nave.player.isAlive == false) $(location).attr('href','../html/Victoria.php?Puntaje=' + puntuacion);
     }
 }

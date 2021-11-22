@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $descripcion;
 $puntaje;
 $url;
@@ -7,7 +9,7 @@ $url;
 if (!isset($_GET['Jugador'])) {
     $descripcion = "Defensor del universo";
     $puntaje = "tu puntaje es";
-    $url = "../variables/db_AgregarPuntuacion.php?Puntaje=".$_GET['Puntaje']."&nombre=";
+    $url = "../variables/db_AgregarPuntuacion.php?Puntaje=".$_GET['Puntaje']."&nombre=".$_SESSION['Nickname'];
     
 } else {
     $descripcion = "Ganador: Jugador ".$_GET['Jugador'];

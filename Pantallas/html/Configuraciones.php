@@ -71,13 +71,13 @@
                 <input type="text" name="Nickname" class="Nickname" placeholder= "Nickname" required>
                 <br>
 
-                <div class="switch-container">
+                <!-- <div class="switch-container">
                     <p>Sonido</p>
                     <br>
 
                     <input type="checkbox" id="switch">
                     <label for="switch" class="lbl"></label>
-                </div>
+                </div> -->
 
 
 

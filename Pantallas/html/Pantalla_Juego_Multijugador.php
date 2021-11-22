@@ -49,8 +49,6 @@
   <div class="botones-box" style="z-index: 1;position: absolute; position: absolute;">
     <form>
       <button type="button" onclick="window.location.href='../html/Inicio.php';" class="btnhome"><i class="fas fa-home"></i></button>
-      <button type="button" onclick="window.location.href='../html/Menu_pausa.php';" class="btn"><i class="fas fa-pause"></i> </button>
-      <button type="button" onclick="window.location.href='../html/Configuraciones.php';" class="btnfix"><i class="fas fa-cogs"></i> </button>
     </form>
     
     <input type="Number" class="Score" id="vid1" value="" disabled style="width: 100px;">

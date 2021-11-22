@@ -42,7 +42,7 @@
   </audio>
 
   <div class="pause">
-  <div class="Menu-box">
+    <div class="Menu-box">
         <img class="Logo" src="../Elementos/Pausa_def.png" alt="Logo_juego">
         <h1>P A U S A</h1>
     </div>
@@ -52,12 +52,6 @@
     <form>
       <button type="button" onclick="window.location.href='../html/Inicio.php';" class="btnhome">
         <i class="fas fa-home"></i>
-      </button>
-      <button type="button" onclick="window.location.href='../html/Menu_pausa.php';" class="btn">
-        <i class="fas fa-pause"></i>
-      </button>
-      <button type="button" onclick="window.location.href='../html/Configuraciones.html';" class="btnfix">
-        <i class="fas fa-cogs"></i>
       </button>
     </form>
     <input type="Number" class="Score" value="" disabled>

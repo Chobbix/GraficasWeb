@@ -29,6 +29,8 @@ var action, action2, action3, action4;
 var flag=false;
 var flag2=false;
 var isWorldReady = [ false, false, false, false, false];
+var isPlayer1Winner = false;
+var isPlayer2Winner = false;
 
 var material2 = new THREE.MeshPhongMaterial({
     color: new THREE.Color(0.5, 0.5, 0.5),
@@ -649,11 +651,11 @@ function cargaItem () {
 }
 
 function isFinishedP1(nave) {
-    if(nave.player.vida <= 0) nave.player.isAlive = false;
-    if(nave.player.isAlive == false) $(location).attr('href','../html/Victoria.php?Jugador=1');
+    if(nave.player.vida <= 0) {nave.player.isAlive = false; isPlayer2Winner = true; deltaTime = 0;}
+    if(nave.player.isAlive == false) {$(location).attr('href','../html/Victoria.php?Jugador=2'); nave.player.vida = 0;}
 }
 
 function isFinishedP2(nave) {
-    if(nave.player.vida <= 0) nave.player.isAlive = false;
-    if(nave.player.isAlive == false) $(location).attr('href','../html/Victoria.php?Jugador=2');
+    if(nave.player.vida <= 0) {nave.player.isAlive = false; isPlayer1Winner = true; deltaTime = 0;}
+    if(nave.player.isAlive == false) {$(location).attr('href','../html/Victoria.php?Jugador=1'); nave.player.vida = 0;}
 }
