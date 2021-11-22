@@ -41,6 +41,13 @@
     </p>
   </audio>
 
+  <div class="pause">
+  <div class="Menu-box">
+        <img class="Logo" src="../Elementos/Pausa_def.png" alt="Logo_juego">
+        <h1>P A U S A</h1>
+    </div>
+  </div>
+
   <div class="botones-box" style="z-index: 1; position: absolute; position: absolute">
     <form>
       <button type="button" onclick="window.location.href='../html/Inicio.php';" class="btnhome">
