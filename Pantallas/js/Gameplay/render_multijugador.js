@@ -58,7 +58,7 @@ $(document).ready(function() {
     loader.load('../Elementos/modelos/Star_Fighter/Textura/StarFighter2.fbx', (nave) => {
 
         nave.scale.setScalar(.2); 
-        nave.rotation.y = THREE.Math.degToRad(180);
+        nave.rotation.y = THREE.Math.degToRad(270);
         
         const anim = new FBXLoader();
         anim.load('../Elementos/modelos/Star_Fighter/Textura/StarFighter2Anim.fbx', (anim) => {
@@ -98,7 +98,7 @@ $(document).ready(function() {
     loader2.load('../Elementos/modelos/Star_Fighter/Textura/StarFighter2Nav2.fbx', (nave2) => {
 
         nave2.scale.setScalar(.2); 
-        //nave2.rotation.y = THREE.Math.degToRad(180);
+        nave2.rotation.y = THREE.Math.degToRad(270);
         
         const anim2 = new FBXLoader();
         anim2.load('../Elementos/modelos/Star_Fighter/Textura/StarFighter2Anim.fbx', (anim) => {
@@ -386,7 +386,6 @@ function onKeyDown(event) {
 
 function onKeyUp(event) {
     keys[String.fromCharCode(event.keyCode)] = false;
-    KEYS[key]=false;
 }
 
 function render() {
