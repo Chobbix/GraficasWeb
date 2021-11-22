@@ -1,7 +1,10 @@
 <?php 
 $dificultad=$_POST['modo'];
-echo "$dificultad";
+
 
 session_start();
 $_SESSION['Dificultad'] = $dificultad;
+
+header('Location: ../html/Inicio.php?dif='.$dificultad);
+
 ?>

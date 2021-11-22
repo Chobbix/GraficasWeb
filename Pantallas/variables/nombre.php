@@ -1,4 +1,8 @@
 <?php 
 $nombre=$_POST['Nickname'];
-echo "$nombre";
+
+session_start();
+$_SESSION['Nickname'] = $nombre;
+
+header('Location: ../html/Inicio.php?Nickname='.$nombre);
 ?>

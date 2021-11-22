@@ -1,7 +1,3 @@
-<?
-    session_start();
-    $_SESSION['Dificultad']=$dificultad;
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,15 +52,14 @@
     <div class="Menu-box">
         <img class="Logo" src="../Elementos/Universe_defenders.png" alt="Logo_juego">
         <h1>M E N U</h1>
-        <form>
+        <form method= "POST" action="../variables/iniciarJuego.php">
             <!-- <div class="col-md-6 animated infinite jello"> -->
             <div class="animated infinite bounce">
-                <input type="button" value="START" onclick="window.location.href='../html/Pantalla_Juego.php';">
+                <input type="submit" name= "juego" value="START">
                 <br>
                 <input type="button" value="Niveles" onclick="window.location.href='../html/Escenarios.php';">
                 <br>
-                <input type="button" value="2 jugadores"
-                    onclick="window.location.href='../html/Pantalla_Juego_Multijugador.php';">
+                <input type="submit" name= "juego" value="2 jugadores">
                 <br>
                 <input type="button" value="Puntación" onclick="window.location.href='../html/Puntuaciones.php';">
                 <br>
