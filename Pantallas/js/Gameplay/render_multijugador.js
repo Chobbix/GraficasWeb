@@ -248,21 +248,20 @@ $(document).ready(function() {
         isWorldReady[4] = true;
     });
 
-    var geometryItem = new THREE.BoxGeometry(1, 1, 1);
-    var materialItem = new THREE.MeshLambertMaterial({
-        color: new THREE.Color(0.0, 0.0, 0.4)
+    var geometryItem = new THREE.SphereGeometry(15, 32, 16);
+    var materialItem = new THREE.MeshPhongMaterial({
+        color: new THREE.Color(0.0, 0.0, 0.4),
+        specular: new THREE.Color(1, 1, 1),
+        shininess: 50
     });
-
-    LoadFBX("../Elementos/modelos/Item/pillA.fbx", (item) => {
-        //var item = new THREE.Mesh(geometryItem, materialItem);
-            item.scale.setScalar(.5); 
-            item.position.set(0, 50, 0);
-            scene.add(item);
-            item.name = "item";
-            item.tipo = 0;
-            collisionObjects.push(item);
-            isWorldReady[2] = true;
-    });
+    var item = new THREE.Mesh(geometryItem, materialItem);
+    item.scale.setScalar(.1); 
+    item.position.set(0, 50, 0);
+    scene.add(item);
+    item.name = "item";
+    item.tipo = 0;
+    collisionObjects.push(item);
+    isWorldReady[2] = true;
 
     if(isHard) {
         
@@ -408,7 +407,8 @@ function render() {
     var nave = scene.getObjectByName("cubo01");
     var nave2 = scene.getObjectByName("cubo02");
 
-
+    $("#vid1").val(nave.player.vida);
+    $("#vid2").val(nave2.player.vida);
 
     if (keys["A"] && nave.position.x > -25) left_rigth = -nave.player.velocidad;
     else if (keys["D"] && nave.position.x < -2) left_rigth = nave.player.velocidad;
@@ -488,13 +488,14 @@ function render() {
         var collision = rayCaster2.intersectObjects(collisionObjects, true);
         if (collision.length > 0 && collision[0].distance < 1) {
             var obj = collision[0].object;
-            obj.parent.parent.parent.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
 
             if (obj.name != "item") {
+                obj.parent.parent.parent.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
                 obj.parent.parent.parent.enemigo.vida = 50;
                 nave.player.vida -= 20;
             }
             else {
+                obj.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
                 if (obj.tipo == 1){ nave.player.vida = 50; }
                 if (obj.tipo == 2){ nave.player.aumentarVelocidad(3); }
                 if (obj.tipo == 3){ nave.player.aumentarPoder(5); }
@@ -549,13 +550,14 @@ function render() {
         var collision = rayCaster3.intersectObjects(collisionObjects, true);
         if (collision.length > 0 && collision[0].distance < 1) {
             var obj = collision[0].object;
-            obj.parent.parent.parent.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
 
             if (obj.name != "item") {
+                obj.parent.parent.parent.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
                 obj.parent.parent.parent.enemigo.vida = 50;
                 nave2.player.vida -= 20;
             }
             else {
+                obj.position.set(posicionAleatoriaAncho(), 50, posicionAleatoriaLargo());
                 if (obj.tipo == 1){ nave2.player.vida = 50; }
                 if (obj.tipo == 2){ nave2.player.aumentarVelocidad(3); }
                 if (obj.tipo == 3){ nave2.player.aumentarPoder(5); }

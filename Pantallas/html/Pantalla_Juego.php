@@ -53,6 +53,7 @@
         <i class="fas fa-cogs"></i>
       </button>
     </form>
+    <input type="Number" class="Score" value="" disabled>
   </div>
 
   <div id="gameplay" style="position: absolute"></div>

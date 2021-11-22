@@ -14,3 +14,15 @@
     color: rgb(255, 254, 254);
     box-shadow: 2px 10px 12px rgba(25, 64, 82, 0.05);
    }
+
+.Score{
+    font-family: 'Dhurjati', sans-serif;
+    font-size: 25px;
+    text-align: center;
+    border-radius: 40px;
+    width: 100%;
+    border-color: rgb(247, 0, 255);
+    background-color: rgba(66, 36, 172, 0.603);
+    color: rgb(255, 254, 254);
+    box-shadow: 2px 10px 12px rgba(25, 64, 82, 0.05);
+}

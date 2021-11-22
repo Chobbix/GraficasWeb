@@ -161,8 +161,10 @@ $(document).ready(function() {
 
     /*-------------------------------------ITEM MODELO-----------------------------------------------*/ 
     var geometryItem = new THREE.SphereGeometry(15, 32, 16);
-    var materialItem = new THREE.MeshLambertMaterial({
-        color: new THREE.Color(0.0, 0.0, 0.4)
+    var materialItem = new THREE.MeshPhongMaterial({
+        color: new THREE.Color(0.0, 0.0, 0.4),
+        specular: new THREE.Color(1, 1, 1),
+        shininess: 50
     });
     var item = new THREE.Mesh(geometryItem, materialItem);
     item.position.set(0, 50, 0);
@@ -312,6 +314,8 @@ function render() {
     var enemigo10 = scene.getObjectByName("enemi10");
 
     isFinished(nave);
+
+    $(".Score").val(nave.player.vida);
 
     var item = scene.getObjectByName("item");
     item.object;
@@ -532,6 +536,5 @@ function isFinished(nave) {
     if(oneDataBase == true){
         if(nave.player.vida <= 0) nave.player.isAlive = false;
         if(nave.player.isAlive == false) $(location).attr('href','../html/Victoria.php?Puntaje=' + puntuacion);
-        oneDataBase = false;
     }
 }
