@@ -64,7 +64,6 @@
 
   <script>
     <?php
-      session_start();
       if($_SESSION['Escenario']==1){?>
         var escenario = 1;
     <?php  }else if($_SESSION['Escenario']==2){?>

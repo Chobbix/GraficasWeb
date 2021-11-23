@@ -38,31 +38,23 @@
     <div class="Menu-box">
         <img class="Logo" src="../Elementos/score.png" alt="Logo_juego" />
         <form method= "GET" action="">
-            <p>
-                <i class="fas fa-user-astronaut"></i>1. KONAN BIG
-                .................................1'000'000pts
-            </p>
+                <?php
+                require("../../Base_de_Datos/conexion.php");
+
+                $conex= ConectarDB();
+                $res = mysqli_query($conex, "SELECT * FROM puntuaciones");
+                
+                while($row = $res->fetch_assoc()) {
+                    ?>
+                    <p>
+                        <i class="fas fa-user-astronaut"></i>1. <?php echo $row['txt_nombre']; ?>.................................<?php echo $row['txt_nombre']; ?>pts
+                    </p>
+                    <?php
+                }
+                
+                mysqli_close($conex);
+                ?>
             <br />
-            <!--<p>
-                <i class="fas fa-user-astronaut"></i>2. EMMA HUEVO
-                ...................................800'000pts
-            </p>
-            <br />
-            <p>
-                <i class="fas fa-user-astronaut"></i>3. ERNESTO CHAVANA
-                ..............................500'000pts
-            </p>
-            <br />
-            <p>
-                <i class="fas fa-user-astronaut"></i>4. BRENDA BEZARES
-                ................................23'000pts
-            </p>
-            <br />
-            <p>
-                <i class="fas fa-user-astronaut"></i>5. HECTOR BENAVIDES
-                ..............................1'000pts
-            </p>
-            <br />-->
             <button type="button" onclick="window.location.href='../html/Inicio.php';" class="btnhome">
                 <i class="fas fa-home"></i>
             </button>
@@ -72,19 +64,6 @@
             <button type="button" onclick="window.location.href='../html/Configuraciones.php';" class="btnfix">
                 <i class="fas fa-cogs"></i>
             </button>
-
-            <!-- <div class="col-md-6 animated infinite jello"> -->
-            <!-- <div class="animated infinite bounce">
-                <input type="button" value="START">
-                <br>
-                <input type="button" value="Niveles">
-                <br>
-                <input type="button" value="2 jugadores">
-                <br>
-                <input type="button" value="Puntación">
-                <br>
-                <input type="button" value="Ajustes">
-            </div> -->
         </form>
     </div>
 </body>
